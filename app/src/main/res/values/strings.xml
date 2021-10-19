@@ -1,3 +1,7 @@
 <resources>
-    <string name="app_name">P7-go4lunch</string>
+    <string name="app_name" translatable="false">go4lunch</string>
+    <string name="title_activity_main" translatable="false">MainActivity</string>
+    <string name="title_map_view">Map View</string>
+    <string name="title_list_view">List View</string>
+    <string name="title_workmates">Workmates</string>
 </resources>

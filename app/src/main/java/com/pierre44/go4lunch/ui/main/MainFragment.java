@@ -1,4 +1,4 @@
-package com.pierre44.p7_go4lunch.ui.main;
+package com.pierre44.go4lunch.ui.main;
 
 import androidx.lifecycle.ViewModelProvider;
 
@@ -12,11 +12,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.pierre44.p7_go4lunch.R;
+import com.pierre44.go4lunch.R;
 
 public class MainFragment extends Fragment {
 
     private MainViewModel mViewModel;
+    private static final int RC_SIGN_IN = 123;
 
     public static MainFragment newInstance() {
         return new MainFragment();
@@ -28,6 +29,8 @@ public class MainFragment extends Fragment {
             @NonNull LayoutInflater inflater, @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.main_fragment, container, false);
+
+
     }
 
     @Override
@@ -36,5 +39,8 @@ public class MainFragment extends Fragment {
         mViewModel = new ViewModelProvider(this).get(MainViewModel.class);
         // TODO: Use the ViewModel
     }
+
+
+
 
 }

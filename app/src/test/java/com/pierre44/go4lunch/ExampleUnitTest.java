@@ -1,4 +1,4 @@
-package com.pierre44.p7_go4lunch;
+package com.pierre44.go4lunch;
 
 import org.junit.Test;
 

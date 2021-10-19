@@ -20,7 +20,7 @@ You will be remembered everyday at noon where you are going to eat and who is co
 * [Retrofit](https://square.github.io/retrofit/)
 * [RxJava](https://github.com/ReactiveX/RxJava)
 * [Easy Permissions](https://github.com/googlesamples/easypermissions)
-* [Firebase Authentification](https://firebase.google.com/docs/auth)
+* [Firebase Authentication](https://firebase.google.com/docs/auth)
 * [Cloud Firestore](https://firebase.google.com/docs/firestore)
 * [Cloud Storage](https://firebase.google.com/docs/storage)
 * [Facebook Android SDK](https://developers.facebook.com/docs/android/)

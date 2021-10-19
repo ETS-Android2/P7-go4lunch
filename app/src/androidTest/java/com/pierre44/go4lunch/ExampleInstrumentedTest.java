@@ -1,4 +1,4 @@
-package com.pierre44.p7_go4lunch;
+package com.pierre44.go4lunch;
 
 import android.content.Context;
 
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
     public void useAppContext() {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        assertEquals("com.pierre44.p7_go4lunch", appContext.getPackageName());
+        assertEquals("com.pierre44.go4lunch", appContext.getPackageName());
     }
 }
