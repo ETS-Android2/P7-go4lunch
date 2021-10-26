@@ -3,6 +3,7 @@
     package="com.pierre44.go4lunch">
 
     <application
+        android:fullBackupOnly="true"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -10,7 +11,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.go4lunch">
         <activity
-            android:name="com.pierre44.go4lunch.ui.main.MainActivity"
+            android:name=".ui.activity.DetailsActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ui.activity.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

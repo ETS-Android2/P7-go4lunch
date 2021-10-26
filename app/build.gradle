@@ -39,6 +39,9 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1'
     implementation 'androidx.navigation:navigation-fragment:2.3.5'
     implementation 'androidx.navigation:navigation-ui:2.3.5'
+    implementation 'androidx.annotation:annotation:1.2.0'
+    implementation 'com.google.android.gms:play-services-maps:17.0.1'
+    implementation 'com.google.firebase:firebase-auth:21.0.1'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
@@ -50,19 +53,32 @@ dependencies {
     implementation platform('com.google.firebase:firebase-bom:28.0.1')
     implementation 'com.google.firebase:firebase-analytics'
 
-    //FIREBASE UI & FIRESTORE & STORAGE & MESSAGING
+    //FIREBASE Auth
+    // When using the BoM, you don't specify versions in Firebase library dependencies
+    implementation 'com.google.firebase:firebase-auth'
+    implementation 'com.firebaseui:firebase-ui-auth:8.0.0'
+    implementation 'com.google.android.gms:play-services-auth:19.2.0'
+
+    //FIREBASE FIRESTORE & STORAGE & MESSAGING
     implementation 'com.google.firebase:firebase-firestore'
-    //implementation 'com.firebaseui:firebase-ui-auth:6.4.0'
-    //implementation 'com.firebaseui:firebase-ui-firestore:7.1.1'
-    //implementation 'com.firebaseui:firebase-ui-storage:7.1.1'
+    implementation 'com.firebaseui:firebase-ui-firestore:7.1.1'
+    implementation 'com.firebaseui:firebase-ui-storage:7.1.1'
     //implementation 'com.google.firebase:firebase-messaging'
 
     //FACEBOOK
-    implementation 'com.facebook.android:facebook-android-sdk:7.1.0'
+    implementation 'com.facebook.android:facebook-android-sdk:12.0.1'
 
     // CRASHLYTICS
-    implementation 'com.google.firebase:firebase-crashlytics'
+    //implementation 'com.google.firebase:firebase-crashlytics'
 
-    // Test
+    //PLACE
+    implementation 'com.google.android.gms:play-services-places:17.0.0'
+    implementation 'com.google.android.libraries.places:places:2.5.0'
 
+    //GSON
+    implementation 'com.google.code.gson:gson:2.8.8'
+
+    //RETROFIT
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
 }

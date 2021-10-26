@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="1dp"
+    android:layout_marginStart="1dp"
+    android:layout_marginEnd="1dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/item_restaurant"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="8dp">
+
+        <!-- Image of restaurant -->
+        <ImageView
+            android:id="@+id/item_restaurant_image"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:scaleType="centerCrop"
+            android:padding="@dimen/padding_mini"
+            android:src="@drawable/ic_knife_and_spoon_crossed_icon_24"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/go4lunchOrange"
+            android:contentDescription="@string/restaurant_image" />
+
+        <!-- Name of restaurant -->
+        <TextView
+            android:id="@+id/item_restaurant_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/restaurant"
+            style="@style/TextAppearance.MaterialComponents.Subtitle1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <!-- Type of restaurant -->
+        <TextView
+            android:id="@+id/item_restaurant_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/type_of_restaurant"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/item_restaurant_name"/>
+
+        <!-- Adresse of restaurant -->
+        <TextView
+            android:id="@+id/item_restaurant_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:layout_marginEnd="2dp"
+            android:text="@string/address_of_restaurant"
+            app:layout_constraintEnd_toStartOf="@+id/item_restaurant_nb_of_workmate"
+            app:layout_constraintStart_toEndOf="@+id/item_restaurant_type"
+            app:layout_constraintTop_toBottomOf="@+id/item_restaurant_name" />
+
+        <!-- status of restaurant -->
+        <TextView
+            android:id="@+id/item_restaurant_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="italic"
+            android:text="@string/open_hour"
+            app:layout_constraintStart_toStartOf="@+id/item_restaurant_type"
+            app:layout_constraintTop_toBottomOf="@+id/item_restaurant_type"/>
+
+        <!-- distance of restaurant -->
+        <TextView
+            android:id="@+id/item_restaurant_distance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/_120m"
+            android:layout_marginEnd="@dimen/default_margin"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/item_restaurant_image"
+            />
+
+        <!-- Nb of workmate to go to restaurant -->
+        <TextView
+            android:id="@+id/item_restaurant_nb_of_workmate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/_2"
+            app:drawableStartCompat="@drawable/ic_baseline_person_outline_24"
+            android:layout_marginEnd="@dimen/default_margin"
+            app:layout_constraintTop_toBottomOf="@id/item_restaurant_distance"
+            app:layout_constraintEnd_toStartOf="@id/item_restaurant_image"
+            app:drawableTint="@color/go4lunchGrey" />
+
+        <RatingBar
+            android:id="@+id/ratingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:isIndicator="true"
+            android:numStars="3"
+            android:stepSize="1"
+            android:progressTint="@color/go4lunchYellow"
+            style="?android:attr/ratingBarStyleSmall"
+            android:rating="0.5"
+            app:layout_constraintEnd_toEndOf="@+id/item_restaurant_nb_of_workmate"
+            app:layout_constraintTop_toBottomOf="@+id/item_restaurant_nb_of_workmate"
+            tools:targetApi="R"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

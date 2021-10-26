@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name_subtitle">Trouvez un bon restaurant et invitez vos collègues à déjeuner !</string>
+    <string name="title_map_view">Vue Map</string>
+    <string name="title_list_view">Vue Liste</string>
+    <string name="title_workmates">Collègues</string>
+    <string name="prompt_email">E-mail</string>
+    <string name="prompt_password">mot de passe</string>
+    <string name="action_sign_in_with_google">"Connection avec Google "</string>
+    <string name="action_sign_in_with_facebook">Connection avec Facebook</string>
+    <string name="action_sign_in_with_twitter">Connection avec Twitter</string>
+    <string name="action_sign_in_short">"Connection "</string>
+    <string name="welcome">Bienvenue !</string>
+    <string name="invalid_username">"Nom d'utilisateur non valide "</string>
+    <string name="invalid_password">"Le mot de passe doit contenir plus de 5 caractères "</string>
+    <string name="login_failed">"Échec de la connexion "</string>
+    <string name="action_sign_in_with_email">"Connection avec E-mail "</string>
+    <string name="restaurant">Restaurant</string>
+    <string name="type_of_restaurant">Type de restaurant</string>
+    <string name="open_hour">Heure d\'ouverture</string>
+    <string name="address_of_restaurant">adresse du restaurant</string>
+    <string name="this_workmate_approves">" Ce collègue approuve"</string>
+    <string name="name_of_restaurant">Nom du Restaurant</string>
+    <string name="detail_activity_button_call">APPEL</string>
+    <string name="detail_activity_button_like">AIMER</string>
+    <string name="detail_activity_button_website">SITE WEB</string>
+</resources>

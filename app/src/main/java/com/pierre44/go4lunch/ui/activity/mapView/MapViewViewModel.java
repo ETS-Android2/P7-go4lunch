@@ -1,16 +1,16 @@
-package com.pierre44.go4lunch.ui.main.ui.workmates;
+package com.pierre44.go4lunch.ui.activity.mapView;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class WorkmatesViewModel extends ViewModel {
+public class MapViewViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
 
-    public WorkmatesViewModel() {
+    public MapViewViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is home fragment");
+        mText.setValue("This is dashboard fragment");
     }
 
     public LiveData<String> getText() {

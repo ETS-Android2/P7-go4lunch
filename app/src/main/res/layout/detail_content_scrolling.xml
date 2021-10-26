@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".ui.activity.DetailsActivity"
+    tools:showIn="@layout/activity_details">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/go4lunchOrange"
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/details_activity_name_of_restaurant"
+                style="@style/TextAppearance.MaterialComponents.Headline5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/name_of_restaurant"
+                android:textColor="@color/go4lunchWhite"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:layout_editor_absoluteX="16dp" />
+
+            <TextView
+                android:id="@+id/details_activity_type_of_restaurant"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/type_of_restaurant"
+                android:textColor="@color/go4lunchWhite"
+                app:layout_constraintStart_toStartOf="@+id/details_activity_name_of_restaurant"
+                app:layout_constraintTop_toBottomOf="@id/details_activity_name_of_restaurant" />
+
+            <TextView
+                android:id="@+id/details_activity_address_of_restaurant"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@string/address_of_restaurant"
+                android:textColor="@color/go4lunchWhite"
+                app:layout_constraintStart_toEndOf="@+id/details_activity_type_of_restaurant"
+                app:layout_constraintTop_toBottomOf="@id/details_activity_name_of_restaurant" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal"
+            android:baselineAligned="false">
+
+            <LinearLayout
+                android:id="@+id/detail_activity_call_place_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                tools:ignore="UseCompoundDrawables">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_baseline_phone_24"
+                    app:tint="@color/go4lunchRed"
+                    android:contentDescription="@string/phone_icon" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/detail_activity_button_call"
+                    android:textColor="@color/go4lunchRed"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/detail_activity_favorite_place_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                tools:ignore="UseCompoundDrawables">
+
+                <ImageView
+                    android:id="@+id/detail_activity_favorite_place_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_baseline_star_rate_24"
+                    app:tint="@color/go4lunchRed"
+                    android:contentDescription="@string/star_icon" />
+
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/detail_activity_button_like"
+                    android:textColor="@color/go4lunchRed" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/detail_activity_website_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                tools:ignore="UseCompoundDrawables">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_baseline_public_24"
+                    app:tint="@color/go4lunchRed"
+                    android:contentDescription="@string/public_icon" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/detail_activity_button_website"
+                    android:textColor="@color/go4lunchRed" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/detail_activity_workmates_of_place_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:listitem="@layout/item_workmate" />
+        </androidx.core.widget.NestedScrollView>
+
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>
