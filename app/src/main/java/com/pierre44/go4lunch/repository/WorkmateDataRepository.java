@@ -3,6 +3,7 @@ package com.pierre44.go4lunch.repository;
 import android.content.Context;
 
 import androidx.annotation.Nullable;
+import androidx.lifecycle.MutableLiveData;
 
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.Task;
@@ -16,23 +17,21 @@ import com.pierre44.go4lunch.models.Workmate;
 /**
  * Created by pmeignen on 21/10/2021.
  */
-public class WorkmateRepository {
+public class WorkmateDataRepository {
 
     private static final String COLLECTION_NAME = "workmates";
     private static final String WORKMATE_NAME_FIELD = "workmateName";
 
-    private static volatile WorkmateRepository instance;
+    private static volatile WorkmateDataRepository instance;
 
-    private WorkmateRepository() { }
-
-    public static WorkmateRepository getInstance() {
-        WorkmateRepository result = instance;
+    public static WorkmateDataRepository getInstance() {
+        WorkmateDataRepository result = instance;
         if (result != null) {
             return result;
         }
-        synchronized(WorkmateRepository.class) {
+        synchronized(WorkmateDataRepository.class) {
             if (instance == null) {
-                instance = new WorkmateRepository();
+                instance = new WorkmateDataRepository();
             }
             return instance;
         }
@@ -69,16 +68,16 @@ public class WorkmateRepository {
     }
 
     // Create Workmate in Firestore
-    public void createWorkmate() {
+    public MutableLiveData<Workmate> createWorkmate() {
+        MutableLiveData<Workmate> workmateMutableLiveData = new MutableLiveData<>();
         FirebaseUser workmate = getCurrentWorkmate();
         if(workmate != null){
             String urlPicture = (workmate.getPhotoUrl() != null) ? workmate.getPhotoUrl().toString() : null;
             String Workmatename = workmate.getDisplayName();
             String uid = workmate.getUid();
-
             Workmate WorkmateToCreate = new Workmate(uid, Workmatename, urlPicture);
-
         }
+        return workmateMutableLiveData;
     }
 
     // Get Workmate Data from Firestore

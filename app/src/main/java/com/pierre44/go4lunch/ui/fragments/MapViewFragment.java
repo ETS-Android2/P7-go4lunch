@@ -1,4 +1,4 @@
-package com.pierre44.go4lunch.ui.activity.mapView;
+package com.pierre44.go4lunch.ui.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.pierre44.go4lunch.databinding.FragmentMapviewBinding;
+import com.pierre44.go4lunch.ui.activity.mapView.MapViewViewModel;
 
 public class MapViewFragment extends Fragment {
 

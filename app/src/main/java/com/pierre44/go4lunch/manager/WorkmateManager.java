@@ -3,9 +3,10 @@ package com.pierre44.go4lunch.manager;
 import android.content.Context;
 
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.pierre44.go4lunch.models.Workmate;
-import com.pierre44.go4lunch.repository.WorkmateRepository;
+import com.pierre44.go4lunch.repository.WorkmateDataRepository;
 
 /**
  * Created by pmeignen on 21/10/2021.
@@ -13,10 +14,10 @@ import com.pierre44.go4lunch.repository.WorkmateRepository;
 public class WorkmateManager {
 
     private static volatile WorkmateManager instance;
-    private WorkmateRepository userRepository;
+    private WorkmateDataRepository userRepository;
 
     private WorkmateManager() {
-        userRepository = WorkmateRepository.getInstance();
+        userRepository = WorkmateDataRepository.getInstance();
     }
 
     public static WorkmateManager getInstance() {
@@ -24,7 +25,7 @@ public class WorkmateManager {
         if (result != null) {
             return result;
         }
-        synchronized (WorkmateRepository.class) {
+        synchronized (WorkmateDataRepository.class) {
             if (instance == null) {
                 instance = new WorkmateManager();
             }
@@ -34,7 +35,7 @@ public class WorkmateManager {
 
     // repository getter
     public FirebaseUser getCurrentUser() {
-        return userRepository.getCurrentWorkmate();
+        return FirebaseAuth.getInstance().getCurrentUser();
     }
 
     // user logged boolean
@@ -60,7 +61,6 @@ public class WorkmateManager {
     public Task<Void> updateUsername(String username) {
         return userRepository.updateWorkmateName(username);
     }
-
 
     public Task<Void> deleteUser(Context context) {
         // Delete the user account from the Auth

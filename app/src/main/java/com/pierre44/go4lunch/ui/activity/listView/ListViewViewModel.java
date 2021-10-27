@@ -10,7 +10,7 @@ public class ListViewViewModel extends ViewModel {
 
     public ListViewViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is notifications fragment");
+        mText.setValue("This is list view fragment");
     }
 
     public LiveData<String> getText() {

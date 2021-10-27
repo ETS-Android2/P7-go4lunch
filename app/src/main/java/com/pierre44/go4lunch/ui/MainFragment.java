@@ -10,6 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.pierre44.go4lunch.MainViewModel;
 import com.pierre44.go4lunch.R;
 
 public class MainFragment extends Fragment {
