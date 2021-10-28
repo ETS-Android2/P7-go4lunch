@@ -2,14 +2,13 @@ package com.pierre44.go4lunch;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
-import androidx.viewbinding.ViewBinding;
 
 import com.pierre44.go4lunch.models.Restaurant;
 import com.pierre44.go4lunch.models.Workmate;
 import com.pierre44.go4lunch.repository.RestaurantDataRepository;
 import com.pierre44.go4lunch.repository.WorkmateDataRepository;
 
-public class MainViewModel extends ViewModel implements ViewBinding {
+public class MainViewModel extends ViewModel {
 
     private RestaurantDataRepository mRestaurantDataRepository;
     private WorkmateDataRepository mWorkmateDataRepository;
@@ -22,14 +21,12 @@ public class MainViewModel extends ViewModel implements ViewBinding {
         mWorkmateDataRepository = workmateDataRepository;
     }
 
-
     // RESTAURANTS
-
 
     public LiveData<Restaurant> getNearbyPlaces(String location) {
         return mRestaurantDataRepository.getNearbyPlaces(location);
     }
-// FIREBASE
+    // FIREBASE
 
     // WORKMATES
     public void createWorkmate(Workmate workmate) {

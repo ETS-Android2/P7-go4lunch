@@ -12,12 +12,11 @@
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="r">?attr/colorPrimaryVariant</item>
-
-        <!-- STYLE FOR MAIN ACTIVITY -->
-        <style name="AppTheme.NoTitle" parent="go4lunch_style">
-            <item name="windowNoTitle">true</item>
-            <item name="windowActionBar">false</item>
-            <item name="actionBarTheme">@null</item>
-        </style>
+    </style>
+    <!-- STYLE FOR MAIN ACTIVITY -->
+    <style name="AppTheme.NoTitle" parent="go4lunch_style">
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="actionBarTheme">@null</item>
     </style>
 </resources>

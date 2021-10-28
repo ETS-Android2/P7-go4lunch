@@ -2,6 +2,7 @@ package com.pierre44.go4lunch.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 
@@ -13,22 +14,14 @@ import com.firebase.ui.auth.util.ExtraConstants;
 import com.google.firebase.auth.ActionCodeSettings;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.pierre44.go4lunch.MainViewModel;
 import com.pierre44.go4lunch.R;
+import com.pierre44.go4lunch.databinding.ActivityAuthBinding;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class FirebaseUI extends BaseActivity<MainViewModel> {
-
-    @Override
-    public MainViewModel getViewBinding() {
-        return null;
-    }
-
-
-
+public class AuthActivity extends BaseActivity<ActivityAuthBinding> {
 
     // [START auth_fui_create_launcher]
     // See: https://developer.android.com/training/basics/intents/result
@@ -36,14 +29,17 @@ public class FirebaseUI extends BaseActivity<MainViewModel> {
             new FirebaseAuthUIActivityResultContract(),
             this::onSignInResult
     );
+
+    @Override
+    public ActivityAuthBinding getViewBinding() {
+        return ActivityAuthBinding.inflate(getLayoutInflater());
+    }
     // [END auth_fui_create_launcher]
-
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_firebase_ui);
+        createSignInIntent();
     }
 
     public void createSignInIntent() {
@@ -60,8 +56,11 @@ public class FirebaseUI extends BaseActivity<MainViewModel> {
         Intent signInIntent = AuthUI.getInstance()
                 .createSignInIntentBuilder()
                 .setAvailableProviders(providers)
+                .setLogo(R.mipmap.ic_launcher) // Set logo drawable
+                .setTheme(R.style.go4lunch_style) // Set theme
                 .build();
         signInLauncher.launch(signInIntent);
+
         // [END auth_fui_create_intent]
     }
 
@@ -71,8 +70,12 @@ public class FirebaseUI extends BaseActivity<MainViewModel> {
         if (result.getResultCode() == RESULT_OK) {
             // Successfully signed in
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            Toast.makeText(this, "login success", Toast.LENGTH_LONG).show();
+            Intent mainActivityIntent = new Intent(this, MainActivity.class);
+            startActivity(mainActivityIntent);
+            finish();
             // ...
-        //} else {
+            //} else {
             // Sign in failed. If response is null the user canceled the
             // sign-in flow using the back button. Otherwise check
             // response.getError().getErrorCode() and handle the error.
@@ -99,20 +102,6 @@ public class FirebaseUI extends BaseActivity<MainViewModel> {
                     // ...
                 });
         // [END auth_fui_delete]
-    }
-
-    public void themeAndLogo() {
-        List<AuthUI.IdpConfig> providers = Collections.emptyList();
-
-        // [START auth_fui_theme_logo]
-        Intent signInIntent = AuthUI.getInstance()
-                .createSignInIntentBuilder()
-                .setAvailableProviders(providers)
-                .setLogo(R.drawable.go4lunch_logo) // Set logo drawable
-                .setTheme(R.style.go4lunch_style) // Set theme
-                .build();
-        signInLauncher.launch(signInIntent);
-        // [END auth_fui_theme_logo]
     }
 
     public void privacyAndTerms() {
@@ -175,5 +164,4 @@ public class FirebaseUI extends BaseActivity<MainViewModel> {
         }
         // [END auth_fui_email_link_catch]
     }
-
 }

@@ -12,36 +12,32 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.pierre44.go4lunch.R;
-import com.pierre44.go4lunch.databinding.MainActivityBinding;
+import com.pierre44.go4lunch.databinding.ActivityMainBinding;
 import com.pierre44.go4lunch.manager.WorkmateManager;
 
-public class MainActivity extends BaseActivity<MainActivityBinding> {
+public class MainActivity extends BaseActivity<ActivityMainBinding> {
 
-    MainActivityBinding binding;
     private WorkmateManager mWorkmateManager = WorkmateManager.getInstance();
     private FirebaseAuth mAuth;
 
-    @Override
-    public MainActivityBinding getViewBinding() {
-        return MainActivityBinding.inflate(getLayoutInflater());
-    }
 
+    @Override
+    public ActivityMainBinding getViewBinding() {
+        return ActivityMainBinding.inflate(getLayoutInflater());
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main_activity);
+        setContentView(R.layout.activity_main);
         setupListeners();
 
         //initialize the FirebaseAuth instance.
         mAuth = FirebaseAuth.getInstance();
 
-        binding = MainActivityBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
-
         BottomNavigationView navView = findViewById(R.id.nav_view);
-         //Passing each menu ID as a set of Ids because each
-         //menu should be considered as top level destinations.
+        //Passing each menu ID as a set of Ids because each
+        //menu should be considered as top level destinations.
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications)
                 .build();
