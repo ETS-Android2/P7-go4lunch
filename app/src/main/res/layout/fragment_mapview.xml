@@ -24,5 +24,4 @@
         app:tint="@color/go4lunchGrey"
         android:contentDescription="@string/fab_to_find_my_location" />
 
-
 </androidx.constraintlayout.widget.ConstraintLayout>

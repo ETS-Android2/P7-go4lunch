@@ -48,4 +48,22 @@
     <string name="phone_icon" translatable="false">phone icon</string>
     <string name="star_icon" translatable="false">star icon</string>
     <string name="public_icon" translatable="false">public icon</string>
+    <string name="title_activity_navigation_drawer" translatable="false">NavigationDrawerActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title" translatable="false">Name place holder</string>
+    <string name="nav_header_subtitle" translatable="false">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">SETTINGS</string>
+    <string name="your_lunch">YOUR LUNCH</string>
+    <string name="settings_drawer">SETTINGS</string>
+    <string name="logout">LOGOUT</string>
+    <string name="profile_image_default" translatable="false">profile image default</string>
+    <string name="title_activity_maps" translatable="false">MapsActivity</string>
+    <string name="open_navigation_drawer">open navigation drawer</string>
+    <string name="close_navigation_drawer">close navigation drawer</string>
+    <string name="error_no_internet">error no internet</string>
+    <string name="error_unknown_error">error unknown error</string>
+    <string name="choose_restaurant">choose restaurant</string>
+    <string name="my_toolbar">my toolbar</string>
 </resources>

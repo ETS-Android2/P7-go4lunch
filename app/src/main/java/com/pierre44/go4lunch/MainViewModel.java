@@ -1,14 +1,18 @@
 package com.pierre44.go4lunch;
 
+import android.view.View;
+
+import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
+import androidx.viewbinding.ViewBinding;
 
 import com.pierre44.go4lunch.models.Restaurant;
 import com.pierre44.go4lunch.models.Workmate;
 import com.pierre44.go4lunch.repository.RestaurantDataRepository;
 import com.pierre44.go4lunch.repository.WorkmateDataRepository;
 
-public class MainViewModel extends ViewModel {
+public class MainViewModel extends ViewModel implements ViewBinding {
 
     private RestaurantDataRepository mRestaurantDataRepository;
     private WorkmateDataRepository mWorkmateDataRepository;
@@ -17,8 +21,8 @@ public class MainViewModel extends ViewModel {
     // MainViewModel
 
     public MainViewModel(RestaurantDataRepository restaurantDataRepository, WorkmateDataRepository workmateDataRepository) {
-        mRestaurantDataRepository = restaurantDataRepository;
-        mWorkmateDataRepository = workmateDataRepository;
+        this.mRestaurantDataRepository = restaurantDataRepository;
+        this.mWorkmateDataRepository = workmateDataRepository;
     }
 
     // RESTAURANTS
@@ -34,12 +38,19 @@ public class MainViewModel extends ViewModel {
 
     }
 
+
     public LiveData<Workmate> getCreatedWorkmateLiveData() {
         return createdWorkmateLiveData;
     }
 
     public LiveData<Workmate> getWorkmate(String iD) {
-        return null;
+        return mWorkmateDataRepository.getWorkmate(iD);
     }
 
+    @NonNull
+    @Override
+    public View getRoot() {
+        View view = null;
+        return view;
+    }
 }

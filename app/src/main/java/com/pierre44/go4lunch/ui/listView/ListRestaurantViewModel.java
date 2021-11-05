@@ -1,14 +1,14 @@
-package com.pierre44.go4lunch.ui.activity.listView;
+package com.pierre44.go4lunch.ui.listView;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class ListViewViewModel extends ViewModel {
+public class ListRestaurantViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
 
-    public ListViewViewModel() {
+    public ListRestaurantViewModel() {
         mText = new MutableLiveData<>();
         mText.setValue("This is list view fragment");
     }

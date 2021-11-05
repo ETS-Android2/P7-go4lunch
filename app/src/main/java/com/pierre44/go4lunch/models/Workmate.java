@@ -5,37 +5,45 @@ package com.pierre44.go4lunch.models;
  */
 public class Workmate {
 
-    private String IDWorkmate;
-    private String NameWorkmate;
-    private String PhotoWorkmate;
+    private String iDWorkmate;
+    private String nameWorkmate;
+    private String photoWorkmate;
+    private String emailWorkmate;
 
-    public Workmate(String IDWorkmate, String nameWorkmate, String photoWorkmate) {
-        this.IDWorkmate = IDWorkmate;
-        NameWorkmate = nameWorkmate;
-        PhotoWorkmate = photoWorkmate;
+    public Workmate(String iDWorkmate, String nameWorkmate, String photoWorkmate, String emailWorkmate) {
+        this.iDWorkmate = iDWorkmate;
+        this.nameWorkmate = nameWorkmate;
+        this.photoWorkmate = photoWorkmate;
+        this.emailWorkmate = emailWorkmate;
     }
 
     public String getIDWorkmate() {
-        return IDWorkmate;
+        return iDWorkmate;
     }
 
-    public void setIDWorkmate(String IDWorkmate) {
-        this.IDWorkmate = IDWorkmate;
+    public void setIDWorkmate(String iDWorkmate) {
+        this.iDWorkmate = iDWorkmate;
     }
 
     public String getNameWorkmate() {
-        return NameWorkmate;
+        return nameWorkmate;
     }
 
     public void setNameWorkmate(String nameWorkmate) {
-        NameWorkmate = nameWorkmate;
+        this.nameWorkmate = nameWorkmate;
     }
 
     public String getPhotoWorkmate() {
-        return PhotoWorkmate;
+        return photoWorkmate;
     }
 
     public void setPhotoWorkmate(String photoWorkmate) {
-        PhotoWorkmate = photoWorkmate;
+        this.photoWorkmate = photoWorkmate;
+    }
+
+    public String getEmailWorkmate() {return emailWorkmate;}
+
+    public void setEmailWorkmate(String emailWorkmate) {
+        this.emailWorkmate = emailWorkmate;
     }
 }

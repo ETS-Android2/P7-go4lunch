@@ -1,4 +1,4 @@
-package com.pierre44.go4lunch.ui.activity;
+package com.pierre44.go4lunch.ui.workmates;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -56,7 +56,6 @@ public class AdaptorListViewWorkmates extends RecyclerView.Adapter<AdaptorListVi
         private final LinearLayout item;
         private final ImageView icon;
         private final TextView text;
-
         private boolean isUsingInWorkmatesFragment;
 
         private Workmate workmate;

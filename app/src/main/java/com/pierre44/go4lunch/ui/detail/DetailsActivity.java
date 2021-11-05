@@ -1,4 +1,4 @@
-package com.pierre44.go4lunch.ui.activity;
+package com.pierre44.go4lunch.ui.detail;
 
 import android.os.Bundle;
 
@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.pierre44.go4lunch.R;
+import com.pierre44.go4lunch.ui.workmates.AdaptorListViewWorkmates;
 
 public class DetailsActivity extends AppCompatActivity {
 
@@ -19,7 +20,7 @@ public class DetailsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_details);
+        setContentView(R.layout.activity_restaurant_details);
 
         this.configureToolbar();
         this.configureUI();
@@ -29,7 +30,7 @@ public class DetailsActivity extends AppCompatActivity {
     private void configureToolbar() {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        CollapsingToolbarLayout toolBarLayout = findViewById(R.id.toolbar_layout);
+        CollapsingToolbarLayout toolBarLayout = findViewById(R.id.toolbar);
         toolBarLayout.setTitle(getTitle());
     }
     // Setup UI

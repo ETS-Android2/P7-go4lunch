@@ -1,4 +1,4 @@
-package com.pierre44.go4lunch.ui.fragments;
+package com.pierre44.go4lunch.ui.mapView;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -7,24 +7,25 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.pierre44.go4lunch.databinding.FragmentMapviewBinding;
-import com.pierre44.go4lunch.ui.activity.mapView.MapViewViewModel;
 
 public class MapViewFragment extends Fragment {
 
-    private MapViewViewModel dashboardViewModel;
+    private MapViewViewModel mMapViewViewModel;
     private FragmentMapviewBinding binding;
 
-    public View onCreateView(
-            @NonNull LayoutInflater inflater,
-            ViewGroup container, Bundle savedInstanceState) {
-        //dashboardViewModel = new ViewModelProvider(this).get(MapViewViewModel.class);
+    public static Fragment newInstance() {
+        return new MapViewFragment();
+    }
+
+    public View onCreateView(@NonNull LayoutInflater inflater,ViewGroup container, Bundle savedInstanceState) {
+
+        mMapViewViewModel = new ViewModelProvider(this).get(MapViewViewModel.class);
 
         binding = FragmentMapviewBinding.inflate(inflater, container, false);
 
-        //final TextView textView = binding.textMapView;
-        //dashboardViewModel.getText().observe(getViewLifecycleOwner(), s -> textView.setText(s));
         return binding.getRoot();
     }
 

@@ -1,6 +1,9 @@
 package com.pierre44.go4lunch.repository;
 
+import static android.content.ContentValues.TAG;
+
 import android.content.Context;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 import androidx.lifecycle.MutableLiveData;
@@ -18,6 +21,8 @@ import com.pierre44.go4lunch.models.Workmate;
  * Created by pmeignen on 21/10/2021.
  */
 public class WorkmateDataRepository {
+
+    private CollectionReference workmateCollectionRef;
 
     private static final String COLLECTION_NAME = "workmates";
     private static final String WORKMATE_NAME_FIELD = "workmateName";
@@ -72,13 +77,30 @@ public class WorkmateDataRepository {
         MutableLiveData<Workmate> workmateMutableLiveData = new MutableLiveData<>();
         FirebaseUser workmate = getCurrentWorkmate();
         if(workmate != null){
-            String urlPicture = (workmate.getPhotoUrl() != null) ? workmate.getPhotoUrl().toString() : null;
-            String Workmatename = workmate.getDisplayName();
             String uid = workmate.getUid();
-            Workmate WorkmateToCreate = new Workmate(uid, Workmatename, urlPicture);
+            String workmateName = workmate.getDisplayName();
+            String urlPicture = (workmate.getPhotoUrl() != null) ? workmate.getPhotoUrl().toString() : null;
+            String workmateEmail = workmate.getEmail();
+            Workmate WorkmateToCreate = new Workmate(uid, workmateName, urlPicture, workmateEmail);
         }
         return workmateMutableLiveData;
     }
+
+    public MutableLiveData<Workmate> getWorkmate(String iD) {
+        MutableLiveData<Workmate> workmateData = new MutableLiveData<>();
+        workmateCollectionRef.document(iD).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful())
+                if(task.getResult() != null)
+                    workmateData.postValue(task.getResult().toObject(Workmate.class));
+                else if (task.getException() != null)
+                    Log.e(TAG,"get Workmate" + (task.getException().getMessage()));
+        });
+        return workmateData;
+    }
+
+
+
+
 
     // Get Workmate Data from Firestore
     public Task<DocumentSnapshot> getWorkmateData(){

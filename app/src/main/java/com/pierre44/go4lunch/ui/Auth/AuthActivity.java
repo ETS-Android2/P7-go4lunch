@@ -1,12 +1,14 @@
-package com.pierre44.go4lunch.ui.activity;
+package com.pierre44.go4lunch.ui.Auth;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 
 import com.firebase.ui.auth.AuthUI;
+import com.firebase.ui.auth.ErrorCodes;
 import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract;
 import com.firebase.ui.auth.IdpResponse;
 import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult;
@@ -14,14 +16,20 @@ import com.firebase.ui.auth.util.ExtraConstants;
 import com.google.firebase.auth.ActionCodeSettings;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.pierre44.go4lunch.MainViewModel;
 import com.pierre44.go4lunch.R;
 import com.pierre44.go4lunch.databinding.ActivityAuthBinding;
+import com.pierre44.go4lunch.models.Workmate;
+import com.pierre44.go4lunch.ui.BaseActivity;
+import com.pierre44.go4lunch.ui.MainActivity;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class AuthActivity extends BaseActivity<ActivityAuthBinding> {
+public class AuthActivity extends BaseActivity<MainViewModel> {
+
+    private static final int RC_SIGN_IN = 123;
 
     // [START auth_fui_create_launcher]
     // See: https://developer.android.com/training/basics/intents/result
@@ -29,12 +37,18 @@ public class AuthActivity extends BaseActivity<ActivityAuthBinding> {
             new FirebaseAuthUIActivityResultContract(),
             this::onSignInResult
     );
+    // [END auth_fui_create_launcher]
 
     @Override
-    public ActivityAuthBinding getViewBinding() {
-        return ActivityAuthBinding.inflate(getLayoutInflater());
+    protected View getLayout() {
+        ActivityAuthBinding binding = ActivityAuthBinding.inflate(getLayoutInflater());
+        return binding.getRoot();
     }
-    // [END auth_fui_create_launcher]
+
+    @Override
+    protected Class getViewModelClass() {
+        return MainViewModel.class;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -53,14 +67,21 @@ public class AuthActivity extends BaseActivity<ActivityAuthBinding> {
                 new AuthUI.IdpConfig.TwitterBuilder().build());
 
         // Create and launch sign-in intent
+
+        // TODO : blur effect doesn't work
+        // Blur effect on background image
+        //ImageView backgroundBlur = findViewById(R.id.item_restaurant_image);
+        //Glide.with(this).load(R.drawable.restaurant_background_portrait)
+        //        .apply(RequestOptions.bitmapTransform(new BlurTransformation(25, 3)))
+        //        .into(backgroundBlur);
+
         Intent signInIntent = AuthUI.getInstance()
                 .createSignInIntentBuilder()
                 .setAvailableProviders(providers)
-                .setLogo(R.mipmap.ic_launcher) // Set logo drawable
-                .setTheme(R.style.go4lunch_style) // Set theme
+                .setLogo(R.drawable.go4lunch_logo_text_en)// Set logo drawable
+                .setTheme(R.style.go4lunch_login) // Set theme
                 .build();
         signInLauncher.launch(signInIntent);
-
         // [END auth_fui_create_intent]
     }
 
@@ -68,30 +89,69 @@ public class AuthActivity extends BaseActivity<ActivityAuthBinding> {
     private void onSignInResult(FirebaseAuthUIAuthenticationResult result) {
         IdpResponse response = result.getIdpResponse();
         if (result.getResultCode() == RESULT_OK) {
+            //checkIfUserExistInFirestore();
             // Successfully signed in
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
             Toast.makeText(this, "login success", Toast.LENGTH_LONG).show();
             Intent mainActivityIntent = new Intent(this, MainActivity.class);
             startActivity(mainActivityIntent);
             finish();
-            // ...
-            //} else {
-            // Sign in failed. If response is null the user canceled the
-            // sign-in flow using the back button. Otherwise check
-            // response.getError().getErrorCode() and handle the error.
-            // ...
+        } else { // ERRORS
+            if (response != null && response.getError() != null) {
+                if (response.getError().getErrorCode() == ErrorCodes.NO_NETWORK) {
+                    Toast.makeText(this, getString(R.string.error_no_internet), Toast.LENGTH_LONG).show();
+                } else if (response.getError().getErrorCode() == ErrorCodes.UNKNOWN_ERROR) {
+                    Toast.makeText(this, getString(R.string.error_unknown_error), Toast.LENGTH_LONG).show();
+                }
+            }
         }
     }
     // [END auth_fui_result]
 
+    private void checkIfUserExistInFirestore() {
+        if (getCurrentUser() != null)
+            viewModel.getWorkmate(getCurrentUser().getUid()).observe(this, user -> {
+                if (user == null)
+                    createUserInFirestore();
+                else
+                    startMainActivity();
+            });
+    }
+
+    private void createUserInFirestore() {
+        if (this.getCurrentUser() != null) {
+            String iDWorkmate = getCurrentUser().getUid();
+            String username = getCurrentUser().getDisplayName();
+            String urlPicture = (getCurrentUser().getPhotoUrl() != null) ? getCurrentUser().getPhotoUrl().toString() : null;
+            String email = getCurrentUser().getEmail();
+            Workmate currentWorkmate = new Workmate(iDWorkmate, username, urlPicture, email);
+
+            viewModel.createWorkmate(currentWorkmate);
+            viewModel.getCreatedWorkmateLiveData().observe(this, user -> {
+                if (user == null)
+                    onFailureListener();
+                else
+                    startMainActivity();
+            });
+        }
+    }
+
+
+    private void startMainActivity() {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+
     public void signOut() {
-        // [START auth_fui_signout]
+        // [START auth_fui_sign_out]
         AuthUI.getInstance()
                 .signOut(this)
                 .addOnCompleteListener(task -> {
                     // ...
                 });
-        // [END auth_fui_signout]
+        // [END auth_fui_sign_out]
     }
 
     public void delete() {

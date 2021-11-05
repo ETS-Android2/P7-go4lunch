@@ -24,4 +24,16 @@
     <string name="detail_activity_button_call">APPEL</string>
     <string name="detail_activity_button_like">AIMER</string>
     <string name="detail_activity_button_website">SITE WEB</string>
+    <string name="navigation_drawer_open">Ouvrir le tirroir de navigation</string>
+    <string name="navigation_drawer_close">Fermer le tirroir de navigation</string>
+    <string name="nav_header_desc">En tête de navigation</string>
+    <string name="action_settings">PARAMÈTRES</string>
+    <string name="your_lunch">TON DÉJEUNER</string>
+    <string name="settings_drawer">PARAMÈTRES</string>
+    <string name="logout">SE DÉCONNECTER</string>
+    <string name="open_navigation_drawer">ouvrir le tiroir de navigation</string>
+    <string name="close_navigation_drawer">fermer le tiroir de navigation</string>
+    <string name="error_no_internet">erreur pas de conecxion internet</string>
+    <string name="error_unknown_error">erreur inconue</string>
+    <string name="choose_restaurant">choisir un restaurant</string>
 </resources>

@@ -1,4 +1,4 @@
-package com.pierre44.go4lunch.ui.fragments;
+package com.pierre44.go4lunch.ui.workmates;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,19 +10,19 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.pierre44.go4lunch.databinding.FragmentWorkmatesBinding;
-import com.pierre44.go4lunch.ui.activity.workmates.WorkmatesViewModel;
 
-public class WorkmatesFragment extends Fragment {
+public class ListWorkmatesFragment extends Fragment {
 
-    private WorkmatesViewModel homeViewModel;
+    private WorkmatesViewModel mWorkmatesViewModel;
     private FragmentWorkmatesBinding binding;
 
+    public static Fragment newInstance() {
+        return new ListWorkmatesFragment();
+    }
 
-    public View onCreateView(
-            @NonNull LayoutInflater inflater,
-            ViewGroup container, Bundle savedInstanceState) {
-        homeViewModel =
-                new ViewModelProvider(this).get(WorkmatesViewModel.class);
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        mWorkmatesViewModel = new ViewModelProvider(this).get(WorkmatesViewModel.class);
 
         binding = FragmentWorkmatesBinding.inflate(inflater, container, false);
 
