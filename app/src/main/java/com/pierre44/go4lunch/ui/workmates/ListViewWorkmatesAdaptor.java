@@ -20,14 +20,13 @@ import java.util.List;
 /**
  * Created by pmeignen on 22/10/2021.
  */
-public class AdaptorListViewWorkmates extends RecyclerView.Adapter<AdaptorListViewWorkmates.WorkmatesViewHolder> {
+public class ListViewWorkmatesAdaptor extends RecyclerView.Adapter<ListViewWorkmatesAdaptor.WorkmatesViewHolder> {
 
     private List<Workmate> workmates = new ArrayList<>();
     private final Context context;
     private final boolean isUsingInWorkmatesFragment;
 
-
-    public AdaptorListViewWorkmates(Context context, boolean isUsingInWorkmatesFragment) {
+    public ListViewWorkmatesAdaptor(Context context, boolean isUsingInWorkmatesFragment) {
         this.context = context;
         this.isUsingInWorkmatesFragment = isUsingInWorkmatesFragment;
     }

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_mapView">
+    app:startDestination="@id/navigation_mapView">
 
     <fragment
         android:id="@+id/navigation_mapView"
@@ -23,15 +23,4 @@
         android:label="@string/title_workmates"
         tools:layout="@layout/fragment_workmates" />
 
-    <activity
-        android:id="@+id/mainActivity"
-        android:name="com.pierre44.go4lunch.ui.MainActivity"
-        android:label="activity_main"
-        tools:layout="@layout/activity_main" />
-
-    <activity
-        android:id="@+id/authActivity"
-        android:name="com.pierre44.go4lunch.ui.Auth.AuthActivity"
-        android:label="activity_auth"
-        tools:layout="@layout/activity_auth" />
 </navigation>

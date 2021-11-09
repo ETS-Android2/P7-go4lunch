@@ -38,9 +38,10 @@ public class MainActivity extends BaseActivity<MainViewModel> implements Navigat
     public static final String FRAGMENT_MAP_VIEW = "FRAGMENT_MAP_VIEW";
     public static final String FRAGMENT_RESTAURANT_LIST_VIEW = "FRAGMENT_RESTAURANT_LIST_VIEW";
     public static final String FRAGMENT_WORKMATES_LIST = "FRAGMENT_WORKMATES_LIST";
-    private String currentUser;
+    //animate navigation drawer
+    private static final float END_SCALE = 0.75f;
     public ActivityMainBinding binding;
-
+    private String currentUser;
     //DESIGN
     private AppBarConfiguration mAppBarConfiguration;
     private NavController navController;
@@ -48,41 +49,27 @@ public class MainActivity extends BaseActivity<MainViewModel> implements Navigat
     private NavigationView navigationView;
     private BottomNavigationView bottomNavView;
     private CoordinatorLayout contentView;
-
     // FRAGMENTS
     private Fragment fragmentMapView;
     private Fragment fragmentRestaurantList;
     private Fragment fragmentWorkmatesList;
-
     // MANAGER
     private WorkmateManager mWorkmateManager = WorkmateManager.getInstance();
     private FirebaseAuth mAuth;
 
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
         // Configure all views
         configureToolBar();
         configureNavigation();
 
         // Show First Fragment
-        this.showFirstFragment();
+        //this.showFirstFragment();
 
         //initialize the FirebaseAuth instance.
         mAuth = FirebaseAuth.getInstance();
 
-        BottomNavigationView navView = findViewById(R.id.bottom_nav_view);
-        //Passing each menu ID as a set of Ids because each
-        //menu should be considered as top level destinations.
-        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.menu_nav_map_view, R.id.menu_nav_list_view, R.id.menu_nav_workmates)
-                .build();
-        //navController = Navigation.findNavController(this,R.id.nav_host_fragment);
-        //NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-        //NavigationUI.setupWithNavController(navView, navController);
     }
 
     private void showFirstFragment() {
@@ -108,7 +95,6 @@ public class MainActivity extends BaseActivity<MainViewModel> implements Navigat
         super.onResume();
     }
 
-
     //--------------------------------------------------
     // SET UP UI
     //--------------------------------------------------
@@ -129,21 +115,16 @@ public class MainActivity extends BaseActivity<MainViewModel> implements Navigat
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_your_lunch,
                 R.id.nav_setting,
-                R.id.nav_logout).setDrawerLayout(drawer)
+                R.id.nav_logout
+                ).setDrawerLayout(drawer)
                 .build();
-        navController = Navigation.findNavController(this,R.id.nav_host_fragment);
-        //NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
-        //navController = navHostFragment.getNavController();
+        navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
-
         NavigationUI.setupWithNavController(navigationView, navController);
         NavigationUI.setupWithNavController(bottomNavView, navController);
 
         animateNavigationDrawer();
     }
-
-    //animate navigation drawer
-    private static final float END_SCALE = 0.75f;
 
     private void animateNavigationDrawer() {
         drawer.addDrawerListener(new DrawerLayout.SimpleDrawerListener() {
@@ -165,13 +146,6 @@ public class MainActivity extends BaseActivity<MainViewModel> implements Navigat
         });
     }
 
-    //private void configureDrawerLayout() {
-    //    ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, binding.activityMainDrawerLayout, myToolbar,
-    //            R.string.open_navigation_drawer, R.string.close_navigation_drawer);
-    //    binding.activityMainDrawerLayout.addDrawerListener(toggle);
-    //    toggle.syncState();
-    //}
-
     @Override
     protected Class getViewModelClass() {
         return MainViewModel.class;
@@ -186,7 +160,6 @@ public class MainActivity extends BaseActivity<MainViewModel> implements Navigat
     public ActivityMainBinding getMainActivityBinding() {
         return binding;
     }
-
 
     //--------------------------------------------------
     // Navigation drawer selection
@@ -296,7 +269,7 @@ public class MainActivity extends BaseActivity<MainViewModel> implements Navigat
     private void startTransactionFragment(Fragment fragment) {
         if (!fragment.isVisible()) {
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.mainActivity, fragment).commit();
+                    .replace(R.id.nav_host_fragment, fragment).commit();
         }
     }
 

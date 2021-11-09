@@ -9,13 +9,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.pierre44.go4lunch.R;
-import com.pierre44.go4lunch.ui.workmates.AdaptorListViewWorkmates;
+import com.pierre44.go4lunch.ui.workmates.ListViewWorkmatesAdaptor;
 
 public class DetailsActivity extends AppCompatActivity {
 
 
     RecyclerView mRecyclerViewWorkmates;
-    AdaptorListViewWorkmates adapter;
+    ListViewWorkmatesAdaptor adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +40,7 @@ public class DetailsActivity extends AppCompatActivity {
 
         //Recycler View
         mRecyclerViewWorkmates = findViewById(R.id.detail_activity_workmates_of_place_recycler_view);
-        adapter = new AdaptorListViewWorkmates(this, false);
+        adapter = new ListViewWorkmatesAdaptor(this, false);
         mRecyclerViewWorkmates.setAdapter(adapter);
         mRecyclerViewWorkmates.setLayoutManager(new LinearLayoutManager(this));
     }
