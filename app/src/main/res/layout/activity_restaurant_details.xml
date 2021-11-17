@@ -22,7 +22,7 @@
                 android:id="@+id/details_activity_image_place"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/go4lunch_logo"
+                android:src="@drawable/go4lunch_logo_white"
                 app:tint="@color/go4lunchOrange"
                 android:contentDescription="@string/restaurant_image" />
 

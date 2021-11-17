@@ -1,5 +1,6 @@
 package com.pierre44.go4lunch.ui;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -8,6 +9,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.widget.Toolbar;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.view.GravityCompat;
@@ -27,9 +29,12 @@ import com.pierre44.go4lunch.MainViewModel;
 import com.pierre44.go4lunch.R;
 import com.pierre44.go4lunch.databinding.ActivityMainBinding;
 import com.pierre44.go4lunch.manager.WorkmateManager;
-import com.pierre44.go4lunch.ui.listView.ListRestaurantFragment;
+import com.pierre44.go4lunch.ui.listView.ListRestaurantsFragment;
+import com.pierre44.go4lunch.ui.listWorkmates.ListWorkmatesFragment;
 import com.pierre44.go4lunch.ui.mapView.MapViewFragment;
-import com.pierre44.go4lunch.ui.workmates.ListWorkmatesFragment;
+
+import java.util.List;
+import java.util.Objects;
 
 public class MainActivity extends BaseActivity<MainViewModel> implements NavigationView.OnNavigationItemSelectedListener, BottomNavigationView.OnNavigationItemSelectedListener {
 
@@ -44,11 +49,11 @@ public class MainActivity extends BaseActivity<MainViewModel> implements Navigat
     private String currentUser;
     //DESIGN
     private AppBarConfiguration mAppBarConfiguration;
-    private NavController navController;
-    private DrawerLayout drawer;
-    private NavigationView navigationView;
-    private BottomNavigationView bottomNavView;
-    private CoordinatorLayout contentView;
+    private NavController mNavController;
+    private DrawerLayout mDrawerLayout;
+    private NavigationView mNavigationView;
+    private BottomNavigationView mBottomNavView;
+    private CoordinatorLayout mCoordinatorLayout;
     // FRAGMENTS
     private Fragment fragmentMapView;
     private Fragment fragmentRestaurantList;
@@ -63,6 +68,7 @@ public class MainActivity extends BaseActivity<MainViewModel> implements Navigat
         // Configure all views
         configureToolBar();
         configureNavigation();
+        configureNavigationView();
 
         // Show First Fragment
         //this.showFirstFragment();
@@ -78,7 +84,7 @@ public class MainActivity extends BaseActivity<MainViewModel> implements Navigat
             // Show News Fragment
             this.showFragmentOrActivity(FRAGMENT_MAP_VIEW);
             // Mark as selected the menu item corresponding to NewsFragment
-            this.navigationView.getMenu().getItem(0).setChecked(true);
+            this.mNavigationView.getMenu().getItem(0).setChecked(true);
         }
     }
 
@@ -99,51 +105,65 @@ public class MainActivity extends BaseActivity<MainViewModel> implements Navigat
     // SET UP UI
     //--------------------------------------------------
 
+    // Configure Toolbar
     private void configureToolBar() {
         Toolbar toolbar = findViewById(R.id.my_toolbar);
         setSupportActionBar(toolbar);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(false);
     }
 
+    // Configure Drawer Layout
+    private void configureDrawerLayout(){
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, binding.drawerLayout, binding.myToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        mDrawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+    }
+
+    // Configure NavigationView
     private void configureNavigation() {
 
-        drawer = findViewById(R.id.drawer_layout);
-        navigationView = findViewById(R.id.nav_view);
-        bottomNavView = findViewById(R.id.bottom_nav_view);
-        contentView = findViewById(R.id.content_view);
+        mDrawerLayout = findViewById(R.id.drawer_layout);
+        mNavigationView = findViewById(R.id.navigation_view);
+        mBottomNavView = findViewById(R.id.bottom_nav_view);
+        mCoordinatorLayout = findViewById(R.id.content_view);
 
         // Passing each menu ID as a set of Ids because each menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_your_lunch,
                 R.id.nav_setting,
                 R.id.nav_logout
-                ).setDrawerLayout(drawer)
+                ).setDrawerLayout(mDrawerLayout)
                 .build();
-        navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
-        NavigationUI.setupWithNavController(navigationView, navController);
-        NavigationUI.setupWithNavController(bottomNavView, navController);
+        mNavController = Navigation.findNavController(this, R.id.nav_host_fragment);
+        NavigationUI.setupActionBarWithNavController(this, mNavController, mAppBarConfiguration);
+        NavigationUI.setupWithNavController(mNavigationView, mNavController);
+        NavigationUI.setupWithNavController(mBottomNavView, mNavController);
 
-        animateNavigationDrawer();
+        //animateNavigationDrawer();
     }
 
     private void animateNavigationDrawer() {
-        drawer.addDrawerListener(new DrawerLayout.SimpleDrawerListener() {
+        mDrawerLayout.addDrawerListener(new DrawerLayout.SimpleDrawerListener() {
             @Override
             public void onDrawerSlide(View drawerView, float slideOffset) {
 
                 // Scale the View based on current slide offset
                 final float diffScaledOffset = slideOffset * (1 - END_SCALE);
                 final float offsetScale = 1 - diffScaledOffset;
-                contentView.setScaleX(offsetScale);
-                contentView.setScaleY(offsetScale);
+                mCoordinatorLayout.setScaleX(offsetScale);
+                mCoordinatorLayout.setScaleY(offsetScale);
 
                 // Translate the View, accounting for the scaled width
                 final float xOffset = drawerView.getWidth() * slideOffset;
-                final float xOffsetDiff = contentView.getWidth() * diffScaledOffset / 2;
+                final float xOffsetDiff = mCoordinatorLayout.getWidth() * diffScaledOffset / 2;
                 final float xTranslation = xOffset - xOffsetDiff;
-                contentView.setTranslationX(xTranslation);
+                mCoordinatorLayout.setTranslationX(xTranslation);
             }
         });
+    }
+
+    private void configureNavigationView() {
+        binding.navigationView.setNavigationItemSelectedListener(this);
     }
 
     @Override
@@ -164,6 +184,8 @@ public class MainActivity extends BaseActivity<MainViewModel> implements Navigat
     //--------------------------------------------------
     // Navigation drawer selection
     //--------------------------------------------------
+    @SuppressLint("NonConstantResourceId")
+    // NonConstantResourceId for name of menu item
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
@@ -179,18 +201,10 @@ public class MainActivity extends BaseActivity<MainViewModel> implements Navigat
             case R.id.nav_logout:
                 this.signOut();
                 break;
-            case R.id.menu_nav_map_view:
-                this.showFragmentOrActivity(FRAGMENT_MAP_VIEW);
-                break;
-            case R.id.menu_nav_list_view:
-                this.showFragmentOrActivity(FRAGMENT_RESTAURANT_LIST_VIEW);
-                break;
-            case R.id.menu_nav_workmates:
-                this.showFragmentOrActivity(FRAGMENT_WORKMATES_LIST);
             default:
                 break;
         }
-        binding.drawerLayout.closeDrawer(GravityCompat.START);
+        //binding.drawerLayout.closeDrawer(GravityCompat.START);
         return false;
     }
 
@@ -228,12 +242,12 @@ public class MainActivity extends BaseActivity<MainViewModel> implements Navigat
 
     @Override
     public void onBackPressed() {
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
+        if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+            mDrawerLayout.closeDrawer(GravityCompat.START);
         }
         //back to map view
         else if (fragmentMapView == null || !fragmentMapView.isVisible())
-            bottomNavView.setSelectedItemId(R.id.menu_nav_map_view);
+            mBottomNavView.setSelectedItemId(R.id.navigation_mapView);
         else {
             super.onBackPressed();
         }
@@ -250,7 +264,7 @@ public class MainActivity extends BaseActivity<MainViewModel> implements Navigat
 
     private void showRestaurantListFragment() {
         if (this.fragmentRestaurantList == null)
-            this.fragmentRestaurantList = ListRestaurantFragment.newInstance();
+            this.fragmentRestaurantList = ListRestaurantsFragment.newInstance();
         this.startTransactionFragment(this.fragmentRestaurantList);
     }
 
@@ -262,7 +276,7 @@ public class MainActivity extends BaseActivity<MainViewModel> implements Navigat
 
     // signOut methode with AuthUI
     public void signOut() {
-        AuthUI.getInstance().signOut(this);
+        AuthUI.getInstance().signOut(this).addOnSuccessListener(aVoid -> backToLoginPage());;
     }
 
     // Generic method that will replace and show a fragment inside the MainActivity
@@ -275,5 +289,15 @@ public class MainActivity extends BaseActivity<MainViewModel> implements Navigat
 
     @Override
     public void onPointerCaptureChanged(boolean hasCapture) {
+    }
+
+    @Override
+    public void onPermissionsGranted(int requestCode, @NonNull List<String> perms) {
+
+    }
+
+    @Override
+    public void onPermissionsDenied(int requestCode, @NonNull List<String> perms) {
+
     }
 }

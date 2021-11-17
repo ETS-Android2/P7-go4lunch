@@ -1,4 +1,4 @@
-package com.pierre44.go4lunch.ui.workmates;
+package com.pierre44.go4lunch.ui.listWorkmates;
 
 import android.content.Context;
 import android.view.LayoutInflater;

@@ -9,18 +9,18 @@
         android:id="@+id/navigation_mapView"
         android:name="com.pierre44.go4lunch.ui.mapView.MapViewFragment"
         android:label="@string/title_map_view"
-        tools:layout="@layout/fragment_mapview" />
+        tools:layout="@layout/fragment_map_view" />
 
     <fragment
         android:id="@+id/navigation_listView"
-        android:name="com.pierre44.go4lunch.ui.listView.ListRestaurantFragment"
+        android:name="com.pierre44.go4lunch.ui.listView.ListRestaurantsFragment"
         android:label="@string/title_list_view"
-        tools:layout="@layout/fragment_listview" />
+        tools:layout="@layout/fragment_list_restaurants" />
 
     <fragment
         android:id="@+id/navigation_workmates"
-        android:name="com.pierre44.go4lunch.ui.workmates.ListWorkmatesFragment"
+        android:name="com.pierre44.go4lunch.ui.listWorkmates.ListWorkmatesFragment"
         android:label="@string/title_workmates"
-        tools:layout="@layout/fragment_workmates" />
+        tools:layout="@layout/fragment_list_workmates" />
 
 </navigation>

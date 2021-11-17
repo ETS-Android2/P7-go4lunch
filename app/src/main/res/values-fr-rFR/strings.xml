@@ -36,4 +36,5 @@
     <string name="error_no_internet">erreur pas de conecxion internet</string>
     <string name="error_unknown_error">erreur inconue</string>
     <string name="choose_restaurant">choisir un restaurant</string>
+    <string name="login_success">connexion réussie</string>
 </resources>

@@ -17,7 +17,7 @@
         <entry key="..\:/Users/pmeignen/Desktop/GIT/P7-go4lunch/app/src/main/res/drawable/ic_baseline_star_outline_24.xml" value="0.35104166666666664" />
         <entry key="..\:/Users/pmeignen/Desktop/GIT/P7-go4lunch/app/src/main/res/drawable/ic_baseline_star_rate_24.xml" value="0.35104166666666664" />
         <entry key="..\:/Users/pmeignen/Desktop/GIT/P7-go4lunch/app/src/main/res/drawable/ic_baseline_view_list_24.xml" value="0.3723958333333333" />
-        <entry key="..\:/Users/pmeignen/Desktop/GIT/P7-go4lunch/app/src/main/res/drawable/ic_drawer_background.xml" value="0.3723958333333333" />
+        <entry key="..\:/Users/pmeignen/Desktop/GIT/P7-go4lunch/app/src/main/res/drawable/ic_drawer_background.xml" value="0.2171875" />
         <entry key="..\:/Users/pmeignen/Desktop/GIT/P7-go4lunch/app/src/main/res/drawable/ic_home_black_24dp.xml" value="0.3723958333333333" />
         <entry key="..\:/Users/pmeignen/Desktop/GIT/P7-go4lunch/app/src/main/res/drawable/ic_knife_and_spoon_crossed_icon_24.xml" value="0.35104166666666664" />
         <entry key="..\:/Users/pmeignen/Desktop/GIT/P7-go4lunch/app/src/main/res/drawable/ic_launcher_background.xml" value="0.3723958333333333" />
@@ -28,11 +28,11 @@
         <entry key="..\:/Users/pmeignen/Desktop/GIT/P7-go4lunch/app/src/main/res/drawable/ic_profile_default.xml" value="0.3723958333333333" />
         <entry key="..\:/Users/pmeignen/Desktop/GIT/P7-go4lunch/app/src/main/res/drawable/ic_soupbowl_white.xml" value="0.3723958333333333" />
         <entry key="..\:/Users/pmeignen/Desktop/GIT/P7-go4lunch/app/src/main/res/drawable/side_nav_bar.xml" value="0.3194444444444444" />
-        <entry key="..\:/Users/pmeignen/Desktop/GIT/P7-go4lunch/app/src/main/res/layout/activity_auth.xml" value="0.24947916666666667" />
+        <entry key="..\:/Users/pmeignen/Desktop/GIT/P7-go4lunch/app/src/main/res/layout/activity_auth.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/pmeignen/Desktop/GIT/P7-go4lunch/app/src/main/res/layout/activity_details.xml" value="0.35625" />
         <entry key="..\:/Users/pmeignen/Desktop/GIT/P7-go4lunch/app/src/main/res/layout/activity_firebase_ui.xml" value="0.35625" />
         <entry key="..\:/Users/pmeignen/Desktop/GIT/P7-go4lunch/app/src/main/res/layout/activity_login.xml" value="0.2203125" />
-        <entry key="..\:/Users/pmeignen/Desktop/GIT/P7-go4lunch/app/src/main/res/layout/activity_main.xml" value="0.3109375" />
+        <entry key="..\:/Users/pmeignen/Desktop/GIT/P7-go4lunch/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/Users/pmeignen/Desktop/GIT/P7-go4lunch/app/src/main/res/layout/activity_maps.xml" value="0.35625" />
         <entry key="..\:/Users/pmeignen/Desktop/GIT/P7-go4lunch/app/src/main/res/layout/activity_navigation_drawer.xml" value="0.35625" />
         <entry key="..\:/Users/pmeignen/Desktop/GIT/P7-go4lunch/app/src/main/res/layout/activity_restaurant_details.xml" value="0.24947916666666667" />
@@ -40,11 +40,14 @@
         <entry key="..\:/Users/pmeignen/Desktop/GIT/P7-go4lunch/app/src/main/res/layout/app_bar_navigation_drawer.xml" value="0.33489583333333334" />
         <entry key="..\:/Users/pmeignen/Desktop/GIT/P7-go4lunch/app/src/main/res/layout/content_main.xml" value="0.2515625" />
         <entry key="..\:/Users/pmeignen/Desktop/GIT/P7-go4lunch/app/src/main/res/layout/content_navigation_drawer.xml" value="0.203125" />
-        <entry key="..\:/Users/pmeignen/Desktop/GIT/P7-go4lunch/app/src/main/res/layout/detail_content_scrolling.xml" value="0.24947916666666667" />
+        <entry key="..\:/Users/pmeignen/Desktop/GIT/P7-go4lunch/app/src/main/res/layout/detail_content_scrolling.xml" value="0.25" />
         <entry key="..\:/Users/pmeignen/Desktop/GIT/P7-go4lunch/app/src/main/res/layout/fragment_dashboard.xml" value="0.19583333333333333" />
         <entry key="..\:/Users/pmeignen/Desktop/GIT/P7-go4lunch/app/src/main/res/layout/fragment_gallery.xml" value="0.33489583333333334" />
         <entry key="..\:/Users/pmeignen/Desktop/GIT/P7-go4lunch/app/src/main/res/layout/fragment_home.xml" value="0.19583333333333333" />
+        <entry key="..\:/Users/pmeignen/Desktop/GIT/P7-go4lunch/app/src/main/res/layout/fragment_list_restaurants.xml" value="0.35625" />
+        <entry key="..\:/Users/pmeignen/Desktop/GIT/P7-go4lunch/app/src/main/res/layout/fragment_list_workmates.xml" value="0.31614583333333335" />
         <entry key="..\:/Users/pmeignen/Desktop/GIT/P7-go4lunch/app/src/main/res/layout/fragment_listview.xml" value="0.35625" />
+        <entry key="..\:/Users/pmeignen/Desktop/GIT/P7-go4lunch/app/src/main/res/layout/fragment_map_view.xml" value="0.35625" />
         <entry key="..\:/Users/pmeignen/Desktop/GIT/P7-go4lunch/app/src/main/res/layout/fragment_mapview.xml" value="0.22" />
         <entry key="..\:/Users/pmeignen/Desktop/GIT/P7-go4lunch/app/src/main/res/layout/fragment_slideshow.xml" value="0.33489583333333334" />
         <entry key="..\:/Users/pmeignen/Desktop/GIT/P7-go4lunch/app/src/main/res/layout/fragment_workmates.xml" value="0.19583333333333333" />

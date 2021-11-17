@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.pierre44.go4lunch.R;
-import com.pierre44.go4lunch.ui.workmates.ListViewWorkmatesAdaptor;
+import com.pierre44.go4lunch.ui.listWorkmates.ListViewWorkmatesAdaptor;
 
 public class DetailsActivity extends AppCompatActivity {
 

@@ -35,9 +35,7 @@ public class MainViewModel extends ViewModel implements ViewBinding {
     // WORKMATES
     public void createWorkmate(Workmate workmate) {
         createdWorkmateLiveData = mWorkmateDataRepository.createWorkmate();
-
     }
-
 
     public LiveData<Workmate> getCreatedWorkmateLiveData() {
         return createdWorkmateLiveData;

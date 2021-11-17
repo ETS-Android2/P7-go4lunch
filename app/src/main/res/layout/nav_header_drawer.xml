@@ -3,12 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="@dimen/nav_header_height"
     android:background="@drawable/restaurant_background_square_blur"
-    android:gravity="bottom"
+    android:gravity="center"
     android:orientation="vertical"
-    android:paddingBottom="@dimen/default_margin"
     android:paddingTop="@dimen/default_margin"
+    android:paddingBottom="@dimen/default_margin"
+
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
     <TextView
@@ -19,11 +20,11 @@
         android:textColor="@color/go4lunchWhite"
         android:textSize="48sp"
         android:textStyle="bold"
-        app:layout_constraintVertical_bias="0.25"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.25" />
 
     <View
         android:id="@+id/shadow"
@@ -40,12 +41,12 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginStart="10dp"
-        app:layout_constraintVertical_bias="0.7"
+        android:contentDescription="@string/profile_image_default"
         android:src="@drawable/ic_profile_default"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView"
-        android:contentDescription="@string/profile_image_default" />
+        app:layout_constraintVertical_bias="0.7" />
 
     <TextView
         android:id="@+id/profile_username"
@@ -53,7 +54,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:ellipsize="end"
-        tools:text="@string/nav_header_title"
         android:textColor="@color/go4lunchWhite"
         android:textSize="15sp"
         android:textStyle="bold"
@@ -61,18 +61,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/profile_image_default"
         app:layout_constraintTop_toTopOf="@+id/profile_image_default"
-        app:layout_constraintVertical_bias="0.2" />
+        app:layout_constraintVertical_bias="0.2"
+        tools:text="@string/nav_header_title" />
 
     <TextView
         android:id="@+id/profile_email"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:ellipsize="end"
-        tools:text="@string/nav_header_subtitle"
         android:textColor="@color/go4lunchWhite"
         android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/profile_username"
-        app:layout_constraintTop_toBottomOf="@+id/profile_username" />
+        app:layout_constraintTop_toBottomOf="@+id/profile_username"
+        tools:text="@string/nav_header_subtitle" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

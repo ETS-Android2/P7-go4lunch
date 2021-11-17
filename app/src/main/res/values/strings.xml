@@ -65,5 +65,6 @@
     <string name="error_no_internet">error no internet</string>
     <string name="error_unknown_error">error unknown error</string>
     <string name="choose_restaurant">choose restaurant</string>
-    <string name="my_toolbar">my toolbar</string>
+    <string name="my_toolbar" translatable="false">my toolbar</string>
+    <string name="login_success">login success</string>
 </resources>

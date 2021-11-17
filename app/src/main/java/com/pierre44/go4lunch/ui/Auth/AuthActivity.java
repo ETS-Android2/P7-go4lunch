@@ -30,6 +30,7 @@ import java.util.List;
 public class AuthActivity extends BaseActivity<MainViewModel> {
 
     private static final int RC_SIGN_IN = 123;
+    ActivityAuthBinding binding;
 
     // [START auth_fui_create_launcher]
     // See: https://developer.android.com/training/basics/intents/result
@@ -41,7 +42,7 @@ public class AuthActivity extends BaseActivity<MainViewModel> {
 
     @Override
     protected View getLayout() {
-        ActivityAuthBinding binding = ActivityAuthBinding.inflate(getLayoutInflater());
+        binding = ActivityAuthBinding.inflate(getLayoutInflater());
         return binding.getRoot();
     }
 
@@ -78,8 +79,9 @@ public class AuthActivity extends BaseActivity<MainViewModel> {
         Intent signInIntent = AuthUI.getInstance()
                 .createSignInIntentBuilder()
                 .setAvailableProviders(providers)
-                .setLogo(R.drawable.go4lunch_logo_text_en)// Set logo drawable
+                .setLogo(R.drawable.go4lunch_logo_white_text_en)// Set logo drawable
                 .setTheme(R.style.go4lunch_login) // Set theme
+                .setIsSmartLockEnabled(false, true)
                 .build();
         signInLauncher.launch(signInIntent);
         // [END auth_fui_create_intent]
@@ -92,7 +94,7 @@ public class AuthActivity extends BaseActivity<MainViewModel> {
             //checkIfUserExistInFirestore();
             // Successfully signed in
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-            Toast.makeText(this, "login success", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, R.string.login_success, Toast.LENGTH_LONG).show();
             Intent mainActivityIntent = new Intent(this, MainActivity.class);
             startActivity(mainActivityIntent);
             finish();
