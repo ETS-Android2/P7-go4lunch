@@ -69,6 +69,7 @@ public class MainActivity extends BaseActivity<MainViewModel> implements Navigat
         configureToolBar();
         configureNavigation();
         configureNavigationView();
+        //configureDrawerLayout();
 
         // Show First Fragment
         //this.showFirstFragment();

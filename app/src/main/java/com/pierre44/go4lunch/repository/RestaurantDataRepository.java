@@ -4,18 +4,19 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.pierre44.go4lunch.models.Restaurant;
+import com.pierre44.go4lunch.placeService.PlaceApi;
 
 /**
  * Created by pmeignen on 27/10/2021.
  */
 public class RestaurantDataRepository {
 
+    private PlaceApi placeApi;
     private static final String COLLECTION_NAME = "restaurant";
 
     private static volatile RestaurantDataRepository instance;
 
     public RestaurantDataRepository() {
-
     }
 
     // get nearby places

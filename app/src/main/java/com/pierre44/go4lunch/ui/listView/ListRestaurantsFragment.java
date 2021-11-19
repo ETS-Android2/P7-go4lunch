@@ -1,6 +1,7 @@
 package com.pierre44.go4lunch.ui.listView;
 
-import android.annotation.SuppressLint;
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -37,7 +39,7 @@ public class ListRestaurantsFragment extends Fragment {
         return new ListRestaurantsFragment();
     }
 
-    public View onCreateView(@NonNull LayoutInflater inflater,ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentListRestaurantsBinding.inflate(inflater, container, false);
         mListRestaurantViewModel = new ViewModelProvider(this).get(ListRestaurantViewModel.class);
 
@@ -52,6 +54,7 @@ public class ListRestaurantsFragment extends Fragment {
 
         return binding.getRoot();
     }
+
     private void initSearchBar() {
     }
 
@@ -72,8 +75,20 @@ public class ListRestaurantsFragment extends Fragment {
 
     private boolean getCurrentLocationFailed() {
         FusedLocationProviderClient fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(mainActivity);
-        //TODO : check for SuppressLint
-        @SuppressLint("MissingPermission")
+
+        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            Toast.makeText(getContext(), R.string.missing_location_permission, Toast.LENGTH_SHORT).show();
+            return false;
+
+        }
         Task<Location> task = fusedLocationProviderClient.getLastLocation();
         task.addOnCompleteListener(getLocationTask -> {
             if (getLocationTask.isSuccessful()) {

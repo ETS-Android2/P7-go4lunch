@@ -107,7 +107,6 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback {
     private void fetchLastLocation() {
         FusedLocationProviderClient fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(mainActivity);
         initMap();
-
         if (ActivityCompat.checkSelfPermission(mainActivity, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
                 ActivityCompat.checkSelfPermission(mainActivity, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
         }
@@ -119,7 +118,7 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback {
                     configureMap(currentLocation);
                 }
             } else {
-                Toast.makeText(getActivity(), "Can't get location", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), R.string.missing_location_permission, Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -151,12 +150,22 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback {
         binding = null;
     }
 
-    //TODO : check for SuppressLint
-    @SuppressLint("MissingPermission")
     public void onPermissionsGranted() {
         if (mMap != null)
-            mMap.setMyLocationEnabled(true);
-        fetchLastLocation();
+            assert mMap != null;
+            if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                    ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                // TODO: Consider calling
+                //    ActivityCompat#requestPermissions
+                // here to request the missing permissions, and then overriding
+                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                //                                          int[] grantResults)
+                // to handle the case where the user grants the permission. See the documentation
+                // for ActivityCompat#requestPermissions for more details.
+                Toast.makeText(getContext(), R.string.missing_location_permission, Toast.LENGTH_SHORT).show();
+                return;
+            }
+        mMap.setMyLocationEnabled(true);
     }
 
     public void onPermissionsDenied() {

@@ -6,9 +6,9 @@
     <!-- Facebook -->
     <!-- Twitter application ID -->
     <string name="twitter_application_id" translatable="false">22313058</string>
-    <string name="twitter_url" translatable="false">https://go4lunch-27b16.firebaseapp.com/__/auth/handler</string>
-    <string name="twitter_api_key" translatable="false">LepTUcOfvuE8oQPGONx954unM</string>
-    <string name="twitter_api_secret" translatable="false" tools:ignore="Typos">1yEs7Ex7J5RznbVlVxfKjktHZYxVXrZPO1M27ksEA06SkvKbJ4</string>
+    <string name="twitter_url" translatable="false">https://go4lunchp7.firebaseapp.com/__/auth/handler</string>
+    <string name="twitter_api_key" translatable="false">ikiOCVtmEKNq75j0DLVK1Ag0g</string>
+    <string name="twitter_api_secret" translatable="false" tools:ignore="Typos">8gErHZoc0oSCmyUSB5J7AMKizHklzzXUZTTaJDeFtjv1Jzhls2</string>
     <!-- Twitter -->
     <string name="app_name" translatable="false">Go4Lunch</string>
     <string name="app_name_subtitle">Find a nice restaurant and invite your coworkers for lunch!</string>
@@ -67,4 +67,5 @@
     <string name="choose_restaurant">choose restaurant</string>
     <string name="my_toolbar" translatable="false">my toolbar</string>
     <string name="login_success">login success</string>
+    <string name="missing_location_permission">missiong location permission</string>
 </resources>
