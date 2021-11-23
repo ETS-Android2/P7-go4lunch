@@ -24,11 +24,10 @@ public class ListViewWorkmatesAdaptor extends RecyclerView.Adapter<ListViewWorkm
 
     private List<Workmate> workmates = new ArrayList<>();
     private final Context context;
-    private final boolean isUsingInWorkmatesFragment;
 
-    public ListViewWorkmatesAdaptor(Context context, boolean isUsingInWorkmatesFragment) {
+    public ListViewWorkmatesAdaptor(Context context) {
         this.context = context;
-        this.isUsingInWorkmatesFragment = isUsingInWorkmatesFragment;
+
     }
 
     @NonNull
@@ -42,7 +41,7 @@ public class ListViewWorkmatesAdaptor extends RecyclerView.Adapter<ListViewWorkm
 
     @Override
     public void onBindViewHolder(@NonNull WorkmatesViewHolder holder, int position) {
-        holder.bind(context, workmates.get(position), isUsingInWorkmatesFragment);
+        holder.bind(context, workmates.get(position));
     }
 
     @Override
@@ -66,7 +65,7 @@ public class ListViewWorkmatesAdaptor extends RecyclerView.Adapter<ListViewWorkm
             item = itemView.findViewById(R.id.item_workmate_item);
         }
 
-        public void bind(Context context, final Workmate workmate, boolean isUsingInWorkmatesFragment) {
+        public void bind(Context context, final Workmate workmate) {
             this.workmate = workmate;
             this.isUsingInWorkmatesFragment = isUsingInWorkmatesFragment;
             text.setText(workmate.getNameWorkmate());

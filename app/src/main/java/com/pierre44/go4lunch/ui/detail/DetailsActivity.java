@@ -40,7 +40,7 @@ public class DetailsActivity extends AppCompatActivity {
 
         //Recycler View
         mRecyclerViewWorkmates = findViewById(R.id.detail_activity_workmates_of_place_recycler_view);
-        adapter = new ListViewWorkmatesAdaptor(this, false);
+        adapter = new ListViewWorkmatesAdaptor(this);
         mRecyclerViewWorkmates.setAdapter(adapter);
         mRecyclerViewWorkmates.setLayoutManager(new LinearLayoutManager(this));
     }

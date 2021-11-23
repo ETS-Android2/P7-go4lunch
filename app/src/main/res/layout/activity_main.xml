@@ -19,18 +19,24 @@
             android:layout_height="wrap_content"
             android:theme="@style/AppTheme.AppBarOverlay">
             <!-- Toolbar -->
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/my_toolbar"
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/my_top_AppBar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:background="?attr/colorPrimary"
-                app:popupTheme="@style/AppTheme.PopupOverlay" />
-        </com.google.android.material.appbar.AppBarLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
+                android:background="@color/colorPrimary"
+                app:popupTheme="@style/AppTheme.PopupOverlay"
+                app:titleTextColor="@color/go4lunchWhite" />
+            <!-- search bar map -->
+            <include
+                android:id="@+id/search_bar_map"
+                layout="@layout/search_bar_map"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_margin="5dp"
+                app:layout_constraintBottom_toTopOf="@+id/frame_layout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
             <!-- ProgressBar -->
             <ProgressBar
                 android:id="@+id/progressBar"
@@ -41,10 +47,15 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
             <!-- Host Fragment -->
             <fragment
                 android:id="@+id/nav_host_fragment"
-                android:name="androidx.navigation.fragment.NavHostFragment"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 app:defaultNavHost="true"
@@ -52,8 +63,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:navGraph="@navigation/mobile_navigation"
-                tools:ignore="FragmentTagUsage" />
+                app:navGraph="@navigation/mobile_navigation" />
 
             <!-- Bottom Navigation View -->
             <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -74,8 +84,7 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:background="@drawable/ic_drawer_background"
-        android:fitsSystemWindows="true"
+        android:background="@drawable/ic_go4lunch_drawer"
         android:theme="@style/DrawerStyle"
         app:headerLayout="@layout/nav_header_drawer"
         app:itemIconTint="@color/go4lunchWhite"

@@ -3,10 +3,8 @@ package com.pierre44.go4lunch.ui;
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.LocationManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.view.View;
@@ -14,7 +12,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
@@ -83,14 +80,17 @@ public abstract class BaseActivity<T extends ViewBinding> extends AppCompatActiv
         startActivity(intent);
     }
 
-    // --------------------
-    // ERROR
-    // --------------------
+    //-------//
+    // ERROR //
+    //-------//
     protected OnFailureListener onFailureListener() {
         return e -> Toast.makeText(getApplicationContext(), getString(R.string.error_unknown_error), Toast.LENGTH_LONG).show();
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.P)
+    //-----------------------------------------------//
+    // ACCESS TO INTERNET & LOCATION CHECKS & ACCESS //
+    //-----------------------------------------------//
+
     public boolean requestLocationAccess() {
         mMapViewFragment = (MapViewFragment) getSupportFragmentManager().findFragmentById(R.id.map_view_fragment);
 
@@ -98,23 +98,26 @@ public abstract class BaseActivity<T extends ViewBinding> extends AppCompatActiv
         String PERMS = ACCESS_FINE_LOCATION;
         if (!EasyPermissions.hasPermissions(this, PERMS)) {
             EasyPermissions.requestPermissions(this,
-                    "This app requires access to your location",
+                    getString(R.string.app_requires_your_location),
                     LOCATION_PERMISSION_REQUEST_CODE, PERMS);
         } else if (!locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
             new AlertDialog.Builder(this)
-                    .setMessage("Location is not enabled")
-                    .setPositiveButton("Authorize shared location", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            BaseActivity.this.startActivityForResult(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS), LOCATION_PERMISSION_REQUEST_CODE);
-                        }
-                    })
+                    .setMessage(R.string.location_not_enabled)
+                    .setPositiveButton(R.string.allow_shared_my_location, (dialog, paramInt) ->
+                            startActivityForResult(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS), LOCATION_PERMISSION_REQUEST_CODE))
                     .setNegativeButton("Cancel", null)
                     .show();
         } else
             locationAvailable = true;
         return locationAvailable;
+    }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == LOCATION_PERMISSION_REQUEST_CODE)
+            if (requestCode == RESULT_OK && locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER))
+                onLocationAccessGranted();
     }
 
     @Override

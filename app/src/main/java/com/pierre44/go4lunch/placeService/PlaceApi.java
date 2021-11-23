@@ -18,14 +18,12 @@ public interface PlaceApi {
             @Query(value = "location", encoded = true) String location,
             @Query(value = "name", encoded = true) String name,
             @Query(value = "opennow", encoded = true) boolean opennow,
-            @Query(value = "rankby", encoded = true) String rankby,
-            @Query(value = "key", encoded = true) String key);
+            @Query(value = "rankby", encoded = true) String rankby);
 
 
     @GET("distancematrix/json")
         // origins/destinations:  LatLng as string
     Call<ResultDistanceMatrix> getDistance(
-            @Query("key") String key,
             @Query("origins") String origins,
             @Query("destinations") String destinations);
 }

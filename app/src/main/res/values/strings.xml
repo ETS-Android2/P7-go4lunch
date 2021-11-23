@@ -60,12 +60,24 @@
     <string name="logout">LOGOUT</string>
     <string name="profile_image_default" translatable="false">profile image default</string>
     <string name="title_activity_maps" translatable="false">MapsActivity</string>
-    <string name="open_navigation_drawer">open navigation drawer</string>
-    <string name="close_navigation_drawer">close navigation drawer</string>
-    <string name="error_no_internet">error no internet</string>
-    <string name="error_unknown_error">error unknown error</string>
-    <string name="choose_restaurant">choose restaurant</string>
-    <string name="my_toolbar" translatable="false">my toolbar</string>
-    <string name="login_success">login success</string>
-    <string name="missing_location_permission">missiong location permission</string>
+    <string name="error_no_internet">Error no internet</string>
+    <string name="error_unknown_error">Error unknown error</string>
+    <string name="choose_restaurant">Choose restaurant</string>
+    <string name="login_success">Login success</string>
+    <string name="title_activity_settings">SettingsActivity</string>
+
+    <!-- Preference Titles -->
+    <string name="notifications_header">Notifications</string>
+
+    <!-- Notifications Preferences -->
+    <string name="notifications_title">Activate notifications</string>
+    <string name="settings_activity">Settings</string>
+    <string name="settings_title">settings</string>
+    <string name="action_search">search</string>
+    <string name="search_for_restaurant">Search for restaurant …</string>
+    <string name="close_search_bar">Close search bar</string>
+    <string name="app_requires_your_location">This app requires access to your location</string>
+    <string name="location_not_enabled">Location is not enabled</string>
+    <string name="allow_shared_my_location">"Allow to share my location "</string>
+    <string name="missing_location_permission">Missing location permission</string>
 </resources>
