@@ -7,7 +7,7 @@
     <!-- Twitter application ID -->
     <string name="twitter_application_id" translatable="false">22313058</string>
     <string name="twitter_url" translatable="false">https://go4lunchp7.firebaseapp.com/__/auth/handler</string>
-    <string name="twitter_api_key" translatable="false">ikiOCVtmEKNq75j0DLVK1Ag0g</string>
+    <string name="twitter_api_key" translatable="false" tools:ignore="Typos">ikiOCVtmEKNq75j0DLVK1Ag0g</string>
     <string name="twitter_api_secret" translatable="false" tools:ignore="Typos">8gErHZoc0oSCmyUSB5J7AMKizHklzzXUZTTaJDeFtjv1Jzhls2</string>
     <!-- Twitter -->
     <string name="app_name" translatable="false">Go4Lunch</string>
@@ -51,7 +51,7 @@
     <string name="title_activity_navigation_drawer" translatable="false">NavigationDrawerActivity</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title" translatable="false">Name place holder</string>
+    <string name="nav_header_title">Name place holder</string>
     <string name="nav_header_subtitle" translatable="false">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">SETTINGS</string>
@@ -72,7 +72,7 @@
     <!-- Notifications Preferences -->
     <string name="notifications_title">Activate notifications</string>
     <string name="settings_activity">Settings</string>
-    <string name="settings_title">settings</string>
+    <string name="settings_title">Settings</string>
     <string name="action_search">search</string>
     <string name="search_for_restaurant">Search for restaurant …</string>
     <string name="close_search_bar">Close search bar</string>
@@ -80,4 +80,14 @@
     <string name="location_not_enabled">Location is not enabled</string>
     <string name="allow_shared_my_location">"Allow to share my location "</string>
     <string name="missing_location_permission">Missing location permission</string>
+    <string name="delete_my_account">DELETE MY ACCOUNT</string>
+    <string name="delete_your_account_here">Delete your account here</string>
+    <string name="profile_picture">Profile picture</string>
+    <string name="profile_username">User name</string>
+    <string name="Cancel">Cancel</string>
+    <string name="account_deleted">Account deleted</string>
+    <string name="Delete">Delete</string>
+    <string name="delete_account_question">Do you want to delete your account permanently ?</string>
+    <string name="details_title">Details</string>
+    <string name="user_account">User account</string>
 </resources>

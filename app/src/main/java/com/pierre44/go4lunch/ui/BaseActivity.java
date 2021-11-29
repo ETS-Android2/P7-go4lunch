@@ -5,6 +5,8 @@ import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 import android.content.Context;
 import android.content.Intent;
 import android.location.LocationManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.view.View;
@@ -23,8 +25,9 @@ import com.google.firebase.auth.FirebaseUser;
 import com.pierre44.go4lunch.R;
 import com.pierre44.go4lunch.di.Injection;
 import com.pierre44.go4lunch.di.ViewModelFactory;
-import com.pierre44.go4lunch.ui.Auth.AuthActivity;
-import com.pierre44.go4lunch.ui.listView.ListRestaurantsFragment;
+import com.pierre44.go4lunch.repository.WorkmateDataRepository;
+import com.pierre44.go4lunch.ui.auth.AuthActivity;
+import com.pierre44.go4lunch.ui.listRestaurant.ListRestaurantsFragment;
 import com.pierre44.go4lunch.ui.mapView.MapViewFragment;
 
 import java.util.List;
@@ -43,6 +46,7 @@ public abstract class BaseActivity<T extends ViewBinding> extends AppCompatActiv
     public T viewModel;
     private MapViewFragment mMapViewFragment;
     private ListRestaurantsFragment mListRestaurantsFragment;
+    private WorkmateDataRepository mWorkmateDataRepository;
     private LocationManager locationManager;
 
     @Override
@@ -65,27 +69,12 @@ public abstract class BaseActivity<T extends ViewBinding> extends AppCompatActiv
 
     protected abstract View getLayout();
 
-    @Nullable
-    public FirebaseUser getCurrentUser() {
-        return FirebaseAuth.getInstance().getCurrentUser();
+
+
+    public void deleteWorkmateFromFirestore() {
+        mWorkmateDataRepository.deleteWorkmateFromFirestore();
     }
 
-    public T getViewModel() {
-        return viewModel;
-    }
-
-    protected void backToLoginPage() {
-        finishAffinity();
-        Intent intent = new Intent(this, AuthActivity.class);
-        startActivity(intent);
-    }
-
-    //-------//
-    // ERROR //
-    //-------//
-    protected OnFailureListener onFailureListener() {
-        return e -> Toast.makeText(getApplicationContext(), getString(R.string.error_unknown_error), Toast.LENGTH_LONG).show();
-    }
 
     //-----------------------------------------------//
     // ACCESS TO INTERNET & LOCATION CHECKS & ACCESS //
@@ -112,6 +101,17 @@ public abstract class BaseActivity<T extends ViewBinding> extends AppCompatActiv
         return locationAvailable;
     }
 
+    public boolean networkUnavailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = null;
+        if (connectivityManager != null) {
+            activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        }
+        return activeNetworkInfo == null || !activeNetworkInfo.isConnected();
+    }
+
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -121,7 +121,7 @@ public abstract class BaseActivity<T extends ViewBinding> extends AppCompatActiv
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @androidx.annotation.NonNull int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
     }
@@ -145,4 +145,33 @@ public abstract class BaseActivity<T extends ViewBinding> extends AppCompatActiv
         else if (mListRestaurantsFragment != null && mListRestaurantsFragment.isVisible())
             mListRestaurantsFragment.onPermissionsGranted();
     }
+
+    // --------------------
+    // UTILS
+    // --------------------
+
+    @Nullable
+    public FirebaseUser getCurrentUser() {
+        return FirebaseAuth.getInstance().getCurrentUser();
+    }
+
+    public T getViewModel() {
+        return viewModel;
+    }
+
+    protected void backToLoginPage() {
+        finishAffinity();
+        Intent intent = new Intent(this, AuthActivity.class);
+        startActivity(intent);
+    }
+
+
+    //-------//
+    // ERROR //
+    //-------//
+
+    protected OnFailureListener onFailureListener() {
+        return e -> Toast.makeText(getApplicationContext(), getString(R.string.error_unknown_error), Toast.LENGTH_LONG).show();
+    }
+
 }

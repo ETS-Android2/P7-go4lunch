@@ -21,29 +21,23 @@ public class PlacesPOJO {
 
     public class CustomA implements Serializable {
 
-
         @SerializedName("geometry")
         public Geometry geometry;
         @SerializedName("vicinity")
         public String vicinity;
         @SerializedName("name")
         public String name;
-
     }
 
     public class Geometry implements Serializable{
-
         @SerializedName("location")
         public LocationA locationA;
-
     }
 
     public class LocationA implements Serializable {
-
         @SerializedName("lat")
         public String lat;
         @SerializedName("lng")
         public String lng;
-
     }
 }

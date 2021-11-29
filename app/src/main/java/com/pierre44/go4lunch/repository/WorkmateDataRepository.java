@@ -58,7 +58,7 @@ public class WorkmateDataRepository {
         return AuthUI.getInstance().signOut(context);
     }
 
-    // Delete Workmate
+    // Delete Workmate profile
     public Task<Void> deleteWorkmate(Context context){
         return AuthUI.getInstance().delete(context);
     }
@@ -97,9 +97,6 @@ public class WorkmateDataRepository {
         });
         return workmateData;
     }
-
-
-
 
 
     // Get Workmate Data from Firestore

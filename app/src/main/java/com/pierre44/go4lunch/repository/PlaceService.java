@@ -1,4 +1,4 @@
-package com.pierre44.go4lunch.placeService;
+package com.pierre44.go4lunch.repository;
 
 import com.pierre44.go4lunch.R;
 

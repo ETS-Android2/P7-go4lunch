@@ -22,12 +22,12 @@
             <TextView
                 android:id="@+id/details_activity_name_of_restaurant"
                 style="@style/TextAppearance.MaterialComponents.Headline5"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/name_of_restaurant"
                 android:textColor="@color/go4lunchWhite"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:layout_editor_absoluteX="16dp" />
+                app:layout_constraintStart_toStartOf="parent"/>
 
             <TextView
                 android:id="@+id/details_activity_type_of_restaurant"

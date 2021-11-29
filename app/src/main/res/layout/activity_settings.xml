@@ -1,7 +1,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <!-- AppBar -->
     <com.google.android.material.appbar.AppBarLayout
@@ -10,29 +12,127 @@
         android:theme="@style/AppTheme.AppBarOverlay">
         <!-- Toolbar -->
         <androidx.appcompat.widget.Toolbar
-            android:id="@+id/my_top_AppBar"
+            android:id="@+id/setting_toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
+            app:navigationIcon="@drawable/ic_baseline_arrow_back_24"
             app:popupTheme="@style/AppTheme.PopupOverlay"
-            app:title="@string/settings_title" />
+            app:title="@string/settings_title"
+            app:titleTextColor="@color/go4lunchWhite" />
     </com.google.android.material.appbar.AppBarLayout>
 
-    <!-- Setting container -->
     <androidx.core.widget.NestedScrollView
-        android:id="@+id/settings"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <!-- SETTINGS CONTAINER -->
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/default_margin"
             android:layout_marginEnd="@dimen/default_margin"
             android:layout_marginBottom="@dimen/default_margin">
 
+            <!-- PROFILE PICTURE AND USERNAME  -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/profile_cardview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/default_margin"
+                android:layout_marginEnd="@dimen/default_margin"
+                app:layout_constraintBottom_toTopOf="@+id/delete_account_cardview"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
+                <!-- TITLE DELETE ACCOUNT BUTTON -->
+                <TextView
+                    android:id="@+id/title_account"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/default_margin"
+                    android:layout_marginVertical="@dimen/default_margin"
+                    android:text="@string/user_account"
+                    app:layout_constraintBottom_toTopOf="@+id/profile_pic"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
+                <ImageView
+                    android:id="@+id/profile_pic"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_margin="@dimen/default_margin"
+                    android:contentDescription="@string/profile_picture"
+                    android:src="@drawable/ic_profile_default"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="@id/profile_cardview"
+                    app:layout_constraintTop_toTopOf="parent"/>
+
+                <TextView
+                    android:id="@+id/profile_username"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/default_margin"
+                    android:layout_marginStart="8dp"
+                    android:lines="1"
+                    android:text="@string/profile_username"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/profile_pic"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <!-- SEPARATOR -->
+            <View
+                android:id="@+id/separator"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/go4lunchLightGrey"
+                app:layout_constraintTop_toBottomOf="@id/profile_cardview" />
+
+            <!-- DELETE PROFILE  -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/delete_account_cardview"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_margin="@dimen/default_margin"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/separator">
+
+                <!-- TITLE DELETE ACCOUNT BUTTON -->
+                <TextView
+                    android:id="@+id/title_delete_account"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/default_margin"
+                    android:layout_marginVertical="@dimen/default_margin"
+                    android:text="@string/delete_your_account_here"
+                    app:layout_constraintBottom_toTopOf="@+id/delete_account"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <!-- DELETE ACCOUNT BUTTON -->
+                <Button
+                    android:id="@+id/delete_account"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/default_margin"
+                    android:layout_marginTop="@dimen/default_margin"
+                    android:layout_marginBottom="8dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:text="@string/delete_my_account"
+                    android:textAppearance="?attr/textAppearanceButton"
+                    android:textColor="@color/go4lunchWhite"
+                    android:backgroundTint="@color/go4lunchRed"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/title_delete_account"
+                    tools:ignore="TextContrastCheck" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 </LinearLayout>

@@ -1,4 +1,4 @@
-package com.pierre44.go4lunch.ui.listView;
+package com.pierre44.go4lunch.ui.listRestaurant;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;

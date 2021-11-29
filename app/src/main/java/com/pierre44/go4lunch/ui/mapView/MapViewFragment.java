@@ -27,14 +27,22 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
+import com.pierre44.go4lunch.AppController;
 import com.pierre44.go4lunch.MainViewModel;
 import com.pierre44.go4lunch.R;
 import com.pierre44.go4lunch.databinding.ActivityMainBinding;
 import com.pierre44.go4lunch.databinding.FragmentMapViewBinding;
+import com.pierre44.go4lunch.models.json2pojo.NearbySearch;
+import com.pierre44.go4lunch.models.json2pojo.PlaceDetails;
 import com.pierre44.go4lunch.ui.MainActivity;
+import com.pierre44.go4lunch.utils.VectorConverter;
+
+import java.util.List;
 
 public class MapViewFragment extends Fragment implements OnMapReadyCallback {
 
@@ -134,6 +142,7 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback {
     private void configureMap(Location currentLocation) {
         LatLng latLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, DEFAULT_ZOOM));
+        getNearbyPlaces(currentLocation);
         cameraLocation = new Location(currentLocation);
         mMap.setOnCameraMoveStartedListener(i -> {
             cameraLocation = new Location(CAMERA_LOCATION);
@@ -142,34 +151,59 @@ public class MapViewFragment extends Fragment implements OnMapReadyCallback {
         });
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        cameraLocation = null;
-
-        binding = null;
+    private NearbySearch getNearbyPlaces(Location currentLocation) {
+        if (mainActivity.networkUnavailable()) {
+            if (getView() != null)
+                Snackbar.make(getView(), "internet_unavailable", BaseTransientBottomBar.LENGTH_LONG).show();
+        } else if (mainActivity.requestLocationAccess()) {
+            mMainViewModel.getNearbyPlaces(AppController.getInstance().getLatLngString(currentLocation))
+                    .observe(getViewLifecycleOwner(), restaurantsResult -> {
+                        if (restaurantsResult != null)
+                            initMarkers(restaurantsResult.getResults());
+                    });
+        }
+        return null;
     }
 
-    public void onPermissionsGranted() {
-        if (mMap != null)
-            assert mMap != null;
-            if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
-                    ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                // TODO: Consider calling
-                //    ActivityCompat#requestPermissions
-                // here to request the missing permissions, and then overriding
-                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                //                                          int[] grantResults)
-                // to handle the case where the user grants the permission. See the documentation
-                // for ActivityCompat#requestPermissions for more details.
-                Toast.makeText(getContext(), R.string.missing_location_permission, Toast.LENGTH_SHORT).show();
-                return;
-            }
-        mMap.setMyLocationEnabled(true);
-    }
-
-    public void onPermissionsDenied() {
-        Snackbar.make(binding.getRoot(), "Location unavailable", BaseTransientBottomBar.LENGTH_INDEFINITE)
-                .setTextColor(getResources().getColor(R.color.go4lunchWhite)).setDuration(5000).show();
-    }
+    private void initMarkers(List<NearbySearch> placeDetailsList) {
+        PlaceDetails placeDetails = new PlaceDetails();
+        NearbySearch nearbySearch = getNearbyPlaces(currentLocation);
+        int markerDrawable = R.drawable.ic_location_restaurant_orange;
+        Marker marker = mMap.addMarker(new MarkerOptions().title(placeDetails.getName())
+                .position(new LatLng(nearbySearch.getGeometry().getLocation().getLatitude(),
+                        nearbySearch.getGeometry().getLocation().getLongitude()))
+                .icon(VectorConverter.getBitmapFromVector(markerDrawable, getResources())));
+        marker.setTag(nearbySearch.getPlaceId());
 }
+
+
+@Override
+public void onDestroyView(){
+        super.onDestroyView();
+        cameraLocation=null;
+        binding=null;
+        }
+
+public void onPermissionsGranted(){
+        if(mMap!=null)
+        assert mMap!=null;
+        if(ActivityCompat.checkSelfPermission(getContext(),Manifest.permission.ACCESS_FINE_LOCATION)!=PackageManager.PERMISSION_GRANTED&&
+        ActivityCompat.checkSelfPermission(getContext(),Manifest.permission.ACCESS_COARSE_LOCATION)!=PackageManager.PERMISSION_GRANTED){
+        // TODO: Consider calling
+        //    ActivityCompat#requestPermissions
+        // here to request the missing permissions, and then overriding
+        //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+        //                                          int[] grantResults)
+        // to handle the case where the user grants the permission. See the documentation
+        // for ActivityCompat#requestPermissions for more details.
+        Toast.makeText(getContext(),R.string.missing_location_permission,Toast.LENGTH_SHORT).show();
+        return;
+        }
+        mMap.setMyLocationEnabled(true);
+        }
+
+public void onPermissionsDenied(){
+        Snackbar.make(binding.getRoot(),"Location unavailable",BaseTransientBottomBar.LENGTH_INDEFINITE)
+        .setTextColor(getResources().getColor(R.color.go4lunchWhite)).setDuration(5000).show();
+        }
+        }

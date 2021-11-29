@@ -1,4 +1,4 @@
-package com.pierre44.go4lunch.ui.Auth;
+package com.pierre44.go4lunch.ui.auth;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -27,7 +27,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class AuthActivity extends BaseActivity<MainViewModel> {
+public class AuthActivity<pendingResultTask> extends BaseActivity<MainViewModel> {
 
     private static final int RC_SIGN_IN = 123;
     ActivityAuthBinding binding;
@@ -91,6 +91,7 @@ public class AuthActivity extends BaseActivity<MainViewModel> {
     private void onSignInResult(FirebaseAuthUIAuthenticationResult result) {
         IdpResponse response = result.getIdpResponse();
         if (result.getResultCode() == RESULT_OK) {
+            // TODO : checkIfUserExistInFirestore to be implemented :
             //checkIfUserExistInFirestore();
             // Successfully signed in
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -143,17 +144,6 @@ public class AuthActivity extends BaseActivity<MainViewModel> {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
         finish();
-    }
-
-
-    public void signOut() {
-        // [START auth_fui_sign_out]
-        AuthUI.getInstance()
-                .signOut(this)
-                .addOnCompleteListener(task -> {
-                    // ...
-                });
-        // [END auth_fui_sign_out]
     }
 
     public void delete() {

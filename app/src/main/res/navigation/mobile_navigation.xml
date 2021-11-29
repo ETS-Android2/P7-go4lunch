@@ -13,7 +13,7 @@
 
     <fragment
         android:id="@+id/navigation_listView"
-        android:name="com.pierre44.go4lunch.ui.listView.ListRestaurantsFragment"
+        android:name="com.pierre44.go4lunch.ui.listRestaurant.ListRestaurantsFragment"
         android:label="@string/title_list_view"
         tools:layout="@layout/fragment_list_restaurants" />
 

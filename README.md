@@ -24,6 +24,7 @@ You will be remembered everyday at noon where you are going to eat and who is co
 * [Cloud Firestore](https://firebase.google.com/docs/firestore)
 * [Cloud Storage](https://firebase.google.com/docs/storage)
 * [Facebook Android SDK](https://developers.facebook.com/docs/android/)
+* [Twitter Android SDK](https://developer.twitter.com/en/docs/authentication/overview)
 * [Maps Android SDK](https://developers.google.com/maps/documentation/android-sdk/intro)
 * [Place Android SDK](https://developers.google.com/places/android-sdk/intro)
 * [Mockito](https://site.mockito.org/)
