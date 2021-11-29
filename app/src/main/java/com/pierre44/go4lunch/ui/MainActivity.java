@@ -36,7 +36,6 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.net.PlacesClient;
@@ -48,11 +47,13 @@ import com.pierre44.go4lunch.MainViewModel;
 import com.pierre44.go4lunch.R;
 import com.pierre44.go4lunch.databinding.ActivityMainBinding;
 import com.pierre44.go4lunch.manager.WorkmateManager;
-import com.pierre44.go4lunch.models.PlacesPOJO;
+import com.pierre44.go4lunch.models.Restaurant;
 import com.pierre44.go4lunch.models.ResultDistanceMatrix;
-import com.pierre44.go4lunch.models.StoreModel;
-import com.pierre44.go4lunch.placeService.PlaceApi;
-import com.pierre44.go4lunch.placeService.PlaceService;
+import com.pierre44.go4lunch.models.json2pojo.NearbySearch;
+import com.pierre44.go4lunch.models.json2pojo.NearbySearchResult;
+import com.pierre44.go4lunch.repository.PlaceApi;
+import com.pierre44.go4lunch.repository.PlaceService;
+import com.pierre44.go4lunch.ui.auth.AuthActivity;
 import com.pierre44.go4lunch.ui.listView.ListRestaurantsFragment;
 import com.pierre44.go4lunch.ui.listWorkmates.ListViewWorkmatesAdaptor;
 import com.pierre44.go4lunch.ui.listWorkmates.ListWorkmatesFragment;
@@ -81,14 +82,14 @@ public class MainActivity extends BaseActivity<MainViewModel> implements Navigat
     private final static int ALL_PERMISSIONS_RESULT = 101;
     public ActivityMainBinding binding;
     public PlacesClient placesClient;
-    List<StoreModel> storeModels;
+    List<Restaurant> mRestaurantList;
     PlaceApi apiService;
     String latLngString;
     LatLng latLng;
     RecyclerView recyclerView;
     EditText editText;
     Button button;
-    List<PlacesPOJO.CustomA> results;
+    List<NearbySearchResult> results;
     private String currentUser;
     //DESIGN
     private AppBarConfiguration mAppBarConfiguration;
@@ -108,6 +109,18 @@ public class MainActivity extends BaseActivity<MainViewModel> implements Navigat
     private ArrayList<String> permissionsToRequest;
     private ArrayList<String> permissionsRejected = new ArrayList<>();
     private ArrayList<String> permissions = new ArrayList<>();
+    private AuthActivity mAuthActivity;
+
+    @Override
+    protected Class getViewModelClass() {
+        return MainViewModel.class;
+    }
+
+    @Override
+    public View getLayout() {
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        return binding.getRoot();
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -121,7 +134,9 @@ public class MainActivity extends BaseActivity<MainViewModel> implements Navigat
         //configureDrawerLayout();
 
         // Show First Fragment
-        //this.showFirstFragment();
+
+        binding.bottomNavView.setOnNavigationItemReselectedListener(this::onNavigationItemSelected);
+        binding.searchBarMap.searchBarMap.setVisibility(View.GONE);
 
         //initialize the FirebaseAuth instance.
         mAuth = FirebaseAuth.getInstance();
@@ -155,7 +170,7 @@ public class MainActivity extends BaseActivity<MainViewModel> implements Navigat
 
         apiService = PlaceService.createService(PlaceApi.class);
 
-        recyclerView = (RecyclerView) findViewById(R.id.fragment_list_view_recycler_view);
+        recyclerView = findViewById(R.id.fragment_list_view_recycler_view);
 
         recyclerView.setNestedScrollingEnabled(false);
         recyclerView.setHasFixedSize(true);
@@ -163,42 +178,40 @@ public class MainActivity extends BaseActivity<MainViewModel> implements Navigat
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        editText = (EditText) findViewById(R.id.search_bar_input);
-        button = (Button) findViewById(R.id.button);
+        editText = findViewById(R.id.search_bar_input);
+        button = findViewById(R.id.button);
 
 
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String s = editText.getText().toString().trim();
-                String[] split = s.split("\\s+");
+        button.setOnClickListener(v -> {
+            String s = editText.getText().toString().trim();
+            String[] split = s.split("\\s+");
 
-                if (split.length != 2) {
-                    Toast.makeText(getApplicationContext(), "Please enter text in the required format", Toast.LENGTH_SHORT).show();
-                } else
-                    fetchStores(split[0], split[1]);
-            }
+            if (split.length != 3) {
+                Toast.makeText(getApplicationContext(), "Please enter text in the required format", Toast.LENGTH_SHORT).show();
+            } else
+                fetchStores(split[0], split[1], split[2]);
         });
     }
-
-    private void fetchStores(String placeType, String businessName) {
+    private void fetchStores(String type, String radius, String rankby) {
 
         //Call<PlacesPOJO.Root> call = apiService.doPlaces(placeType, latLngString,"\""+ businessName +"\"", true, "distance", APIClient.GOOGLE_PLACE_API_KEY);
 
-        Call<PlacesPOJO.Root> call = apiService.doPlaces(placeType, latLngString, businessName, true, "distance");
-        call.enqueue(new Callback<PlacesPOJO.Root>() {
+        String location = null;
+        Call<NearbySearch> call = apiService.getNearbyPlaces(type,location);
+        call.enqueue(new Callback<NearbySearch>() {
             @Override
-            public void onResponse(Call<PlacesPOJO.Root> call, Response<PlacesPOJO.Root> response) {
-                PlacesPOJO.Root root = response.body();
+            public void onResponse(Call<NearbySearch> call, Response<NearbySearch> response) {
+                NearbySearch root = response.body();
 
                 if (response.isSuccessful()) {
-                    if (root.status.equals("OK")) {
-                        results = root.customA;
-                        storeModels = new ArrayList<>();
+                    assert root != null;
+                    if (root.getStatus().equals("OK")) {
+                        results = root.getResults();
+                        mRestaurantList = new ArrayList<>();
                         for (int i = 0; i < results.size(); i++) {
                             if (i == 10)
                                 break;
-                            PlacesPOJO.CustomA info = results.get(i);
+                            NearbySearchResult info = results.get(i);
 
                             fetchDistance(info);
                         }
@@ -211,7 +224,7 @@ public class MainActivity extends BaseActivity<MainViewModel> implements Navigat
             }
 
             @Override
-            public void onFailure(Call<PlacesPOJO.Root> call, Throwable t) {
+            public void onFailure(Call<NearbySearch> call, Throwable t) {
                 // Log error here since request failed
                 call.cancel();
             }
@@ -302,9 +315,9 @@ public class MainActivity extends BaseActivity<MainViewModel> implements Navigat
                 });
     }
 
-    private void fetchDistance(final PlacesPOJO.CustomA info) {
+    private void fetchDistance(final NearbySearchResult info) {
 
-        Call<ResultDistanceMatrix> call = apiService.getDistance(latLngString, info.geometry.locationA.lat + "," + info.geometry.locationA.lng);
+        Call<ResultDistanceMatrix> call = apiService.getDistance(latLngString, info.getGeometry().getLocation().getLatitude() + "," + info.getGeometry().getLocation().getLongitude());
         call.enqueue(new Callback<ResultDistanceMatrix>() {
             @Override
             public void onResponse(Call<ResultDistanceMatrix> call, Response<ResultDistanceMatrix> response) {
@@ -317,24 +330,20 @@ public class MainActivity extends BaseActivity<MainViewModel> implements Navigat
                         ResultDistanceMatrix.InfoDistanceMatrix.ValueItem itemDistance = distanceElement.distance;
                         String totalDistance = String.valueOf(itemDistance.text);
                         String totalDuration = String.valueOf(itemDuration.text);
-                        storeModels.add(new StoreModel(info.name, info.vicinity, totalDistance, totalDuration));
-
-                        if (storeModels.size() == 10 || storeModels.size() == results.size()) {
+                        mRestaurantList.add(new Restaurant());
+                        if (mRestaurantList.size() == 10 || mRestaurantList.size() == results.size()) {
                             ListViewWorkmatesAdaptor adapterStores = new ListViewWorkmatesAdaptor(MainActivity.this);
                             recyclerView.setAdapter(adapterStores);
                         }
                     }
                 }
             }
-
             @Override
             public void onFailure(Call<ResultDistanceMatrix> call, Throwable t) {
                 call.cancel();
             }
         });
-
     }
-
 
     private void showFirstFragment() {
         Fragment visibleFragment = getSupportFragmentManager().findFragmentById(R.id.map_view_fragment);
@@ -430,16 +439,7 @@ public class MainActivity extends BaseActivity<MainViewModel> implements Navigat
         binding.navigationView.setNavigationItemSelectedListener(this);
     }
 
-    @Override
-    protected Class getViewModelClass() {
-        return MainViewModel.class;
-    }
 
-    @Override
-    public View getLayout() {
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
-        return binding.getRoot();
-    }
 
     public ActivityMainBinding getMainActivityBinding() {
         return binding;
@@ -464,7 +464,7 @@ public class MainActivity extends BaseActivity<MainViewModel> implements Navigat
                 this.showFragmentOrActivity(ACTIVITY_SETTINGS);
                 break;
             case R.id.nav_logout:
-                this.signOut();
+                this.mAuthActivity.signOut();
                 break;
             default:
                 break;
@@ -562,12 +562,6 @@ public class MainActivity extends BaseActivity<MainViewModel> implements Navigat
         if (this.fragmentWorkmatesList == null)
             this.fragmentWorkmatesList = ListWorkmatesFragment.newInstance();
         this.startTransactionFragment(this.fragmentWorkmatesList);
-    }
-
-    // signOut methode with AuthUI
-    public void signOut() {
-        AuthUI.getInstance().signOut(this).addOnSuccessListener(aVoid -> backToLoginPage());
-        ;
     }
 
     // Generic method that will replace and show a fragment inside the MainActivity

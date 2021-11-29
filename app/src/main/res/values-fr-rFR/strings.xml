@@ -47,4 +47,6 @@
     <string name="location_not_enabled">La localisation n\'est pas activé</string>
     <string name="allow_shared_my_location">Autoriser à partager ma position</string>
     <string name="missing_location_permission">"Autorisation de localisation manquante "</string>
+    <string name="delete_my_account">SUPPRIMER MON COMPTE</string>
+    <string name="delete_your_account_here">"Supprimer votre compte ici "</string>
 </resources>

@@ -7,7 +7,7 @@
     <!-- Twitter application ID -->
     <string name="twitter_application_id" translatable="false">22313058</string>
     <string name="twitter_url" translatable="false">https://go4lunchp7.firebaseapp.com/__/auth/handler</string>
-    <string name="twitter_api_key" translatable="false">ikiOCVtmEKNq75j0DLVK1Ag0g</string>
+    <string name="twitter_api_key" translatable="false" tools:ignore="Typos">ikiOCVtmEKNq75j0DLVK1Ag0g</string>
     <string name="twitter_api_secret" translatable="false" tools:ignore="Typos">8gErHZoc0oSCmyUSB5J7AMKizHklzzXUZTTaJDeFtjv1Jzhls2</string>
     <!-- Twitter -->
     <string name="app_name" translatable="false">Go4Lunch</string>
@@ -80,4 +80,6 @@
     <string name="location_not_enabled">Location is not enabled</string>
     <string name="allow_shared_my_location">"Allow to share my location "</string>
     <string name="missing_location_permission">Missing location permission</string>
+    <string name="delete_my_account">DELETE MY ACCOUNT</string>
+    <string name="delete_your_account_here">Delete your account here</string>
 </resources>

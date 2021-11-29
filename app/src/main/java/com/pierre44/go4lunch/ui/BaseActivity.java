@@ -23,7 +23,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.pierre44.go4lunch.R;
 import com.pierre44.go4lunch.di.Injection;
 import com.pierre44.go4lunch.di.ViewModelFactory;
-import com.pierre44.go4lunch.ui.Auth.AuthActivity;
+import com.pierre44.go4lunch.repository.WorkmateDataRepository;
+import com.pierre44.go4lunch.ui.auth.AuthActivity;
 import com.pierre44.go4lunch.ui.listView.ListRestaurantsFragment;
 import com.pierre44.go4lunch.ui.mapView.MapViewFragment;
 
@@ -43,6 +44,7 @@ public abstract class BaseActivity<T extends ViewBinding> extends AppCompatActiv
     public T viewModel;
     private MapViewFragment mMapViewFragment;
     private ListRestaurantsFragment mListRestaurantsFragment;
+    private WorkmateDataRepository mWorkmateDataRepository;
     private LocationManager locationManager;
 
     @Override
@@ -78,6 +80,10 @@ public abstract class BaseActivity<T extends ViewBinding> extends AppCompatActiv
         finishAffinity();
         Intent intent = new Intent(this, AuthActivity.class);
         startActivity(intent);
+    }
+
+    public void deleteUser(String uid) {
+        //mWorkmateDataRepository.deleteWorkmate(uid);
     }
 
     //-------//
@@ -121,18 +127,18 @@ public abstract class BaseActivity<T extends ViewBinding> extends AppCompatActiv
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @androidx.annotation.NonNull int[] grantResults) {
+    public void onRequestPermissionsResult(@NonNull int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
     }
 
     @Override
-    public void onPermissionsGranted(int requestCode, @NonNull List<String> perms) {
+    public void onPermissionsGranted(@NonNull int requestCode, @NonNull List<String> perms) {
         if (requestCode == LOCATION_PERMISSION_REQUEST_CODE)
             onLocationAccessGranted();
     }
 
-    public void onPermissionsDenied(int requestCode, @NonNull List<String> perms) {
+    public void onPermissionsDenied(@NonNull int requestCode, @NonNull List<String> perms) {
         if (mMapViewFragment != null && mMapViewFragment.isVisible())
             mMapViewFragment.onPermissionsDenied();
         else if (mListRestaurantsFragment != null && mListRestaurantsFragment.isVisible())

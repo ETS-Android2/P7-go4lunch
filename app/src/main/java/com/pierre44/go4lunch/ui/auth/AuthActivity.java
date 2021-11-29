@@ -1,4 +1,4 @@
-package com.pierre44.go4lunch.ui.Auth;
+package com.pierre44.go4lunch.ui.auth;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -91,7 +91,7 @@ public class AuthActivity extends BaseActivity<MainViewModel> {
     private void onSignInResult(FirebaseAuthUIAuthenticationResult result) {
         IdpResponse response = result.getIdpResponse();
         if (result.getResultCode() == RESULT_OK) {
-            //checkIfUserExistInFirestore();
+            checkIfUserExistInFirestore();
             // Successfully signed in
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
             Toast.makeText(this, R.string.login_success, Toast.LENGTH_LONG).show();
@@ -148,11 +148,8 @@ public class AuthActivity extends BaseActivity<MainViewModel> {
 
     public void signOut() {
         // [START auth_fui_sign_out]
-        AuthUI.getInstance()
-                .signOut(this)
-                .addOnCompleteListener(task -> {
-                    // ...
-                });
+        AuthUI.getInstance().signOut(this).addOnSuccessListener(aVoid -> backToLoginPage());
+        ;
         // [END auth_fui_sign_out]
     }
 

@@ -19,7 +19,6 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
-import com.pierre44.go4lunch.MainViewModel;
 import com.pierre44.go4lunch.R;
 import com.pierre44.go4lunch.databinding.ActivityMainBinding;
 import com.pierre44.go4lunch.databinding.FragmentListRestaurantsBinding;
@@ -31,7 +30,6 @@ public class ListRestaurantsFragment extends Fragment {
     private FragmentListRestaurantsBinding binding;
     private MainActivity mainActivity;
     private ActivityMainBinding mMainBinding;
-    private MainViewModel mMainViewModel;
     private boolean locationTaskSuccessful = false;
     private Location currentLocation;
 

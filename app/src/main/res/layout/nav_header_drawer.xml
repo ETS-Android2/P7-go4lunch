@@ -9,7 +9,8 @@
     android:orientation="vertical"
     android:paddingTop="@dimen/default_margin"
     android:paddingBottom="@dimen/default_margin"
-    android:theme="@style/ThemeOverlay.AppCompat.Dark">
+    android:theme="@style/ThemeOverlay.AppCompat.Dark"
+    tools:ignore="Overdraw">
 
     <View
         android:id="@+id/shadow"

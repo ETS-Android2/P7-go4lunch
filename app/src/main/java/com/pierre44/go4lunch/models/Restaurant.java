@@ -22,6 +22,10 @@ public class Restaurant {
         OpeningHour = openingHour;
     }
 
+    // Public Empty constructor
+    public Restaurant( ) {
+    }
+
     //Getters
 
     public String getPlaceId() {
